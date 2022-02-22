@@ -25,14 +25,12 @@
 
 // Library for ClearView and some constants
 #include "pubSysCls.h"
-//using namespace sFnd;
-//#define ACC_LIM_RPM_PER_SEC 100000
-//#define VEL_LIM_RPM         700
-//#define MOVE_DISTANCE_CNTS  10000   
-//#define NUM_MOVES           5
-//#define TIME_TILL_TIMEOUT   10000   //The timeout used for homing(ms)
-
-void msgUser(const char* msg) {}
+using namespace sFnd;
+#define ACC_LIM_RPM_PER_SEC 100000
+#define VEL_LIM_RPM         700
+#define MOVE_DISTANCE_CNTS  10000   
+#define NUM_MOVES           5
+#define TIME_TILL_TIMEOUT   10000   //The timeout used for homing(ms)
 
 
 // These functions are basic C function, which the DLL loader can find
@@ -364,6 +362,17 @@ MotorControllerCHOP::setupParameters(OP_ParameterManager* manager, void *reserve
 		assert(res == OP_ParAppendResult::Success);
 	}
 
+	// pause for 1 second
+	{
+		OP_NumericParameter	np;
+
+		np.name = "Pause";
+		np.label = "Pause";
+
+		OP_ParAppendResult res = manager->appendPulse(np);
+		assert(res == OP_ParAppendResult::Success);
+	}
+
 	// pulse
 	{
 		OP_NumericParameter	np;
@@ -399,16 +408,17 @@ MotorControllerCHOP::pulsePressed(const char* name, void* reserved1)
 		myOffset = 10.0;
 		rotateMotor();
 	}
+
+	if (!strcmp(name, "Pause"))
+	{
+		std::this_thread::sleep_for(std::chrono::seconds(1));
+	}
 }
 
 int MotorControllerCHOP::rotateMotor()
 {
-	/*
-	msgUser("Motion Example starting. Press Enter to continue.");
-
 	size_t portCount = 0;
 	std::vector<std::string> comHubPorts;
-
 
 	//Create the SysManager object. This object will coordinate actions among various ports
 	// and within nodes. In this example we use this object to setup and open our port.
@@ -419,34 +429,32 @@ int MotorControllerCHOP::rotateMotor()
 	//otherwise the catch loop is skipped over
 	try
 	{
-
 		SysManager::FindComHubPorts(comHubPorts);
-		printf("Found %d SC Hubs\n", comHubPorts.size());
+		//printf("Found %d SC Hubs\n", comHubPorts.size());
 
 		for (portCount = 0; portCount < comHubPorts.size() && portCount < NET_CONTROLLER_MAX; portCount++) {
 
-			myMgr->ComHubPort(portCount, comHubPorts[portCount].c_str()); 	//define the first SC Hub port (port 0) to be associated 
-											// with COM portnum (as seen in device manager)
+			//define the first SC Hub port (port 0) to be associated 
+			// with COM portnum (as seen in device manager)
+			myMgr->ComHubPort(portCount, comHubPorts[portCount].c_str());
 		}
 
 		if (portCount < 0) {
 
-			printf("Unable to locate SC hub port\n");
+			//printf("Unable to locate SC hub port\n");
 
-			msgUser("Press any key to continue."); //pause so the user can see the error message; waits for user to press a key
+			//msgUser("Press any key to continue."); //pause so the user can see the error message; waits for user to press a key
 
 			return -1;  //This terminates the main program
 		}
+
 		//printf("\n I will now open port \t%i \n \n", portnum);
 		myMgr->PortsOpen(portCount);				//Open the port
 
 		for (size_t i = 0; i < portCount; i++) {
 			IPort& myPort = myMgr->Ports(i);
 
-			printf(" Port[%d]: state=%d, nodes=%d\n",
-				myPort.NetNumber(), myPort.OpenState(), myPort.NodeCount());
-
-
+			//printf(" Port[%d]: state=%d, nodes=%d\n", myPort.NetNumber(), myPort.OpenState(), myPort.NodeCount());
 
 			//Once the code gets past this point, it can be assumed that the Port has been opened without issue
 			//Now we can get a reference to our port object which we will use to access the node objects
@@ -459,15 +467,12 @@ int MotorControllerCHOP::rotateMotor()
 
 				myMgr->Delay(200);
 
-
 				//theNode.Setup.ConfigLoad("Config File path");
-
-
-				printf("   Node[%d]: type=%d\n", int(iNode), theNode.Info.NodeType());
-				printf("            userID: %s\n", theNode.Info.UserID.Value());
-				printf("        FW version: %s\n", theNode.Info.FirmwareVersion.Value());
-				printf("          Serial #: %d\n", theNode.Info.SerialNumber.Value());
-				printf("             Model: %s\n", theNode.Info.Model.Value());
+				// printf("   Node[%d]: type=%d\n", int(iNode), theNode.Info.NodeType());
+				// printf("            userID: %s\n", theNode.Info.UserID.Value());
+				// printf("        FW version: %s\n", theNode.Info.FirmwareVersion.Value());
+				// printf("          Serial #: %d\n", theNode.Info.SerialNumber.Value());
+				// printf("             Model: %s\n", theNode.Info.Model.Value());
 
 				//The following statements will attempt to enable the node.  First,
 				// any shutdowns or NodeStops are cleared, finally the node is enabled
@@ -475,13 +480,13 @@ int MotorControllerCHOP::rotateMotor()
 				theNode.Motion.NodeStopClear();	//Clear Nodestops on Node  				
 				theNode.EnableReq(true);					//Enable node 
 				//At this point the node is enabled
-				printf("Node \t%zi enabled\n", iNode);
+				//printf("Node \t%zi enabled\n", iNode);
 				double timeout = myMgr->TimeStampMsec() + TIME_TILL_TIMEOUT;	//define a timeout in case the node is unable to enable
 																			//This will loop checking on the Real time values of the node's Ready status
 				while (!theNode.Motion.IsReady()) {
 					if (myMgr->TimeStampMsec() > timeout) {
-						printf("Error: Timed out waiting for Node %d to enable\n", iNode);
-						msgUser("Press any key to continue."); //pause so the user can see the error message; waits for user to press a key
+						//printf("Error: Timed out waiting for Node %d to enable\n", iNode);
+						//msgUser("Press any key to continue."); //pause so the user can see the error message; waits for user to press a key
 						return -2;
 					}
 				}
@@ -491,12 +496,12 @@ int MotorControllerCHOP::rotateMotor()
 				{
 					if (theNode.Motion.Homing.WasHomed())
 					{
-						printf("Node %d has already been homed, current position is: \t%8.0f \n", iNode, theNode.Motion.PosnMeasured.Value());
-						printf("Rehoming Node... \n");
+						//printf("Node %d has already been homed, current position is: \t%8.0f \n", iNode, theNode.Motion.PosnMeasured.Value());
+						//printf("Rehoming Node... \n");
 					}
 					else
 					{
-						printf("Node [%d] has not been homed.  Homing Node now...\n", iNode);
+						//printf("Node [%d] has not been homed.  Homing Node now...\n", iNode);
 					}
 					//Now we will home the Node
 					theNode.Motion.Homing.Initiate();
@@ -505,15 +510,15 @@ int MotorControllerCHOP::rotateMotor()
 																			// Basic mode - Poll until disabled
 					while (!theNode.Motion.Homing.WasHomed()) {
 						if (myMgr->TimeStampMsec() > timeout) {
-							printf("Node did not complete homing:  \n\t -Ensure Homing settings have been defined through ClearView. \n\t -Check for alerts/Shutdowns \n\t -Ensure timeout is longer than the longest possible homing move.\n");
-							msgUser("Press any key to continue."); //pause so the user can see the error message; waits for user to press a key
+							//printf("Node did not complete homing:  \n\t -Ensure Homing settings have been defined through ClearView. \n\t -Check for alerts/Shutdowns \n\t -Ensure timeout is longer than the longest possible homing move.\n");
+							//msgUser("Press any key to continue."); //pause so the user can see the error message; waits for user to press a key
 							return -2;
 						}
 					}
-					printf("Node completed homing\n");
+					//printf("Node completed homing\n");
 				}
 				else {
-					printf("Node[%d] has not had homing setup through ClearView.  The node will not be homed.\n", iNode);
+					//printf("Node[%d] has not had homing setup through ClearView.  The node will not be homed.\n", iNode);
 				}
 
 			}
@@ -535,19 +540,19 @@ int MotorControllerCHOP::rotateMotor()
 					theNode.Motion.AccLimit = ACC_LIM_RPM_PER_SEC;		//Set Acceleration Limit (RPM/Sec)
 					theNode.Motion.VelLimit = VEL_LIM_RPM;				//Set Velocity Limit (RPM)
 
-					printf("Moving Node \t%zi \n", iNode);
+					//printf("Moving Node \t%zi \n", iNode);
 					theNode.Motion.MovePosnStart(MOVE_DISTANCE_CNTS);			//Execute 10000 encoder count move 
-					printf("%f estimated time.\n", theNode.Motion.MovePosnDurationMsec(MOVE_DISTANCE_CNTS));
+					//printf("%f estimated time.\n", theNode.Motion.MovePosnDurationMsec(MOVE_DISTANCE_CNTS));
 					double timeout = myMgr->TimeStampMsec() + theNode.Motion.MovePosnDurationMsec(MOVE_DISTANCE_CNTS) + 100;			//define a timeout in case the node is unable to enable
 
 					while (!theNode.Motion.MoveIsDone()) {
 						if (myMgr->TimeStampMsec() > timeout) {
-							printf("Error: Timed out waiting for move to complete\n");
-							msgUser("Press any key to continue."); //pause so the user can see the error message; waits for user to press a key
+							//printf("Error: Timed out waiting for move to complete\n");
+							//msgUser("Press any key to continue."); //pause so the user can see the error message; waits for user to press a key
 							return -2;
 						}
 					}
-					printf("Node \t%zi Move Done\n", iNode);
+					//printf("Node \t%zi Move Done\n", iNode);
 				} // for each node
 			} // for each move
 
@@ -556,7 +561,7 @@ int MotorControllerCHOP::rotateMotor()
 		//////////////////////////////////////////////////////////////////////////////////////////////
 		//After moves have completed Disable node, and close ports
 		//////////////////////////////////////////////////////////////////////////////////////////////
-			printf("Disabling nodes, and closing port\n");
+			//printf("Disabling nodes, and closing port\n");
 			//Disable Nodes
 
 			for (size_t iNode = 0; iNode < myPort.NodeCount(); iNode++) {
@@ -567,22 +572,20 @@ int MotorControllerCHOP::rotateMotor()
 	}
 	catch (mnErr& theErr)
 	{
-		printf("Failed to disable Nodes n\n");
+		//printf("Failed to disable Nodes n\n");
 		//This statement will print the address of the error, the error code (defined by the mnErr class), 
 		//as well as the corresponding error message.
-		printf("Caught error: addr=%d, err=0x%08x\nmsg=%s\n", theErr.TheAddr, theErr.ErrorCode, theErr.ErrorMsg);
+		//printf("Caught error: addr=%d, err=0x%08x\nmsg=%s\n", theErr.TheAddr, theErr.ErrorCode, theErr.ErrorMsg);
 
-		msgUser("Press any key to continue."); //pause so the user can see the error message; waits for user to press a key
+		//msgUser("Press any key to continue."); //pause so the user can see the error message; waits for user to press a key
 		return 0;  //This terminates the main program
 	}
 
 	// Close down the ports
 	myMgr->PortsClose();
 
-	msgUser("Press any key to continue."); //pause so the user can see the error message; waits for user to press a key
-	*/
+	//msgUser("Press any key to continue."); //pause so the user can see the error message; waits for user to press a key
 	
-	std::this_thread::sleep_for(std::chrono::seconds(2));
 	return 0;
 }
 
