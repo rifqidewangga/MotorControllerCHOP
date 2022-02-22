@@ -1,0 +1,818 @@
+//Microsoft Developer Studio generated resource script.
+//
+// $Archive: /ClearPath SC/User Driver/win/CNdriverDLL.rc $
+// $Revision: 92 $ $Date: 7/28/16 9:50 $
+//
+#include "../inc/inc-private/sFound/sFoundResource.h"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "windows.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#if (defined(_WIN32)||defined(_WIN64))
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#include "sFoundationDLL.rc2"
+#endif //_WIN32
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "../inc/inc-private/sFound/sFoundResource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_UNKNOWN             "<unknown parameter>"
+    STR_OUT_OF_RANGE        "<out of range>"
+    STR_PARAM_DEVID         "Device ID"
+    STR_PARAM_FWVERS        "Firmware Version"
+    STR_PARAM_HWVERS        "Hardware Version"
+    STR_PARAM_RESELLERID    "Reseller ID"
+    STR_PARAM_SERIAL_NUM    "Serial Number"
+    STR_PARAM_OPT_REG       "Options Register"
+    STR_PARAM_ROMSUM_ACK    "Firmware Update Acknowledge"
+    STR_PARAM_FWSUM         "Firmware Checksum"
+    STR_PARAM_SAMP_PER      "Sample Period"
+    STR_PARAM_ALERT_REG		"Op. State Register"
+    STR_PARAM_STOPTYPE      "Node Stop Type"
+    STR_PARAM_WDTC          "Watchdog Time Constant"
+    STR_PARAM_USERID        "User Identification"
+    STR_PARAM_USERID1       "User Identification(ext)"
+    STR_PARAM_STATUS        "Status Register"
+	STR_PARAM_RUN_ERROR		"Run-Time Error Code"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_PARAM_STATUS_RT     "Status Register (realtime)"
+    STR_PARAM_STATUS_ATTN_RISE "Status Rise/Attn Register"
+    STR_PARAM_STATUS_FALL	"Status Fall Register"
+    STR_PARAM_ATTN_MASK		"Attention Mask Register"
+    STR_PARAM_TIMESTAMP     "Node Time"
+    STR_PARAM_TIMESTAMP16   "Node Time (long)"
+    STR_PARAM_CONFIG_REG    "Configuration Options"
+    STR_PARAM_IN_REG        "Input Register"
+    STR_PARAM_IN_RISE_REG   "Input Rising Edge Latch"
+    STR_PARAM_IN_FALL_REG   "Input Falling Edge Latch"
+    STR_PARAM_IN_TRANS_REG  "Input Transition Latch"
+    STR_PARAM_IN_SRC_REG    "Input Source Definition"
+    STR_PARAM_USER_IN_REG   "User Input Register"
+    STR_PARAM_OUT_REG       "Output Register"
+    STR_PARAM_OUT_RISE_REG  "Output Rising Edge Latch"
+    STR_PARAM_OUT_FALL_REG  "Output Falling Edge Latch"
+    STR_PARAM_OUT_TRANS_REG "Output Transition Latch"
+END
+
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_PARAM_IN_POLARITY   "Input Polarity Register"
+    STR_PARAM_USER_OUT_REG  "User Output Register"
+    STR_PARAM_OUT_SRC_REG   "Output PLA Source"
+    STR_PARAM_GP_TIMER      "GP timer period"
+    STR_PARAM_PLA_OUT_REG   "PLA Output Register"
+    STR_PARAM_IN_POL_REG    "Input Polarity Register"
+    STR_PARAM_MEAS_POSN     "Measured Position"
+    STR_PARAM_INDEX_POSN_CAP "Index Position Capture"
+    STR_PARAM_GPI0_POSN_CAP "GPI 00 Position Capture"
+    STR_PARAM_PLA_POSN_CAP  "PLA Position Capture"
+    STR_PARAM_POLL_SET      "Set of Param. to Poll"
+    STR_PARAM_POLL_TYPE_REG "Poll Parameter Register"
+    STR_PARAM_VEL_LIMIT     "Velocity Limit"
+    STR_PARAM_ACC_LIMIT     "Acceleration Limit"
+    STR_PARAM_TEST9         "Test param #9"
+    STR_PARAM_IMR           "Interrupt Mask"
+
+	STR_P_POSN1_CAP_INDEX	"Index Position Capture (load)"
+	STR_P_POSN1_MEAS32		"Measured Position (load)"		
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_PARAM_RAS_CON_REG   "RAS™ Jerk Limit"
+    STR_PARAM_ATTN_REG      "Attention Register"
+    STR_PARAM_NODE_LIST     "Polled Node List"
+    STR_PARAM_POSN_TRIG_PT  "Position Trigger Point"
+    STR_PARAM_A_START       "A after Start"
+    STR_PARAM_B_END         "B before End"
+    STR_PARAM_POS_TRK_RNG   "Tracking Range"
+    STR_PARAM_CMD_POSN      "Commanded Position"
+    STR_PARAM_POSN_TRK      "Position Error"
+    STR_PARAM_PULSE_ENC_RATIO "Pulse/Encoder Ratio"
+    STR_PARAM_STOPACC_LIM   "Stop Acceleration Limit"
+    STR_PARAM_I_MEAS_POSN   "Measured Position (int)"
+    STR_PARAM_I_CMD_POSN    "Commanded Position (int)"
+    STR_PARAM_CMD_VEL       "Commanded Velocity"
+    STR_PARAM_MEAS_VEL      "Measured Velocity"
+    STR_PARAM_DEC_LIMIT     "Deceleration Limit"
+    STR_PARAM_I_MEAS_POSN_MTR "Measured Motor Position (int)"
+    STR_PARAM_CPL_ERR	    "Coupling Error"
+    STR_PARAM_SOFT_LIM_POS  "Software Limit Position Positive"
+    STR_PARAM_SOFT_LIM_NEG  "Software Limit Position Negative"
+	STR_PARAM_DWELL			"Repeating Move Dwell"
+	STR_HOME_ACCEL			"Homing Acceleration"
+	STR_RAS_DELAY			"RAS Delay"
+	STR_HOME_TRAVEL			"Maximum travel from home"
+	STR_HOME_DELAY			"Hardstop delay time"
+    STR_PARAM_VEL_LIMIT_MAX     "Velocity Limit Max"
+    STR_PARAM_ACC_LIMIT_MAX     "Acceleration Limit Max"
+    STR_PARAM_STOPACC_LIM_MAX   "Stop Acceleration Limit Max"
+    STR_MTR_INERTIA		"Motor Inertia"
+    STR_MTR_STAT_FRICTION	"Motor Static Friction"
+    STR_MTR_VISC_FRICTION	"Motor Viscous Friction"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_PARAM_HEAD_DX		"Head Distance"
+    STR_PARAM_TAIL_DX		"Tail Distance"
+    STR_PARAM_HEADTAIL_VEL  "Head/Tail Velocity Limit"
+    STR_PARAM_VGLITCH       "Velocity Glitch"
+    STR_PARAM_DGLITCH       "Position Glitch"
+    STR_PARAM_MAXACC        "Maximum Acceleration"
+    STR_PARAM_N_GARBAGE     "Number of Stray Characters"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_PARAM_POLL_PRIO     "Poll Priority List"
+    STR_PARAM_RING_POLL     "Maximum Ring Poll"
+    STR_PARAM_RING_POLL_CNT "Current Ring Poll"
+    STR_PARAM_CHKS_ERR      "Number of Packets/Bad Checksum "
+    STR_PARAM_FRAG_ERR      "Number of Fragmented Packets"
+    STR_PARAM_N_SENT        "Number of Packets Sent"
+    STR_PARAM_N_RCVD        "Number of Packets Received"
+    STR_PARAM_N_SENT_SOF    "Number of SOF Sent"
+    STR_PARAM_N_RCVD_SOF    "Number of SOF Received"
+    STR_PARAM_N_IRQ_SENT    "Number of Interrupts Received"
+    STR_PARAM_N_ATTN_RCVD   "Number of Attn. Req. Received"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_PARAM_DATA_AQ_SET   "Acquisition Parameters"
+    STR_PARAM_THRES0        "DigiLog Thresholds 0"
+    STR_PARAM_THRES1        "DigiLog Thresholds 1"
+    STR_PARAM_THRES2        "DigiLog Thresholds 2"
+    STR_PARAM_THRES3        "DigiLog Thresholds 3"
+    STR_PARAM_THRES4        "DigiLog Thresholds 4"
+    STR_PARAM_THRES5        "DigiLog Thresholds 5"
+    STR_PARAM_THRES6        "DigiLog Thresholds 6"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_PARAM_THRES7        "DigiLog Thresholds 7"
+    STR_PARAM_THRES8        "DigiLog Thresholds 8"
+    STR_PARAM_THRES9        "DigiLog Thresholds 9"
+    STR_PARAM_THRES10       "DigiLog Thresholds 10"
+    STR_PARAM_THRES11       "DigiLog Thresholds 11"
+    STR_PARAM_ACOEF0        "DigiLog Filter 0"
+    STR_PARAM_ACOEF1        "DigiLog Filter 1"
+    STR_PARAM_ACOEF2        "DigiLog Filter 2"
+    STR_PARAM_ACOEF3        "DigiLog Filter 3"
+    STR_PARAM_ACOEF4        "DigiLog Filter 4"
+    STR_PARAM_ACOEF5        "DigiLog Filter 5"
+    STR_PARAM_ACOEF6        "DigiLog Filter 6"
+    STR_PARAM_ACOEF7        "DigiLog Filter 7"
+    STR_PARAM_ACOEF8        "DigiLog Filter 8"
+    STR_PARAM_ACOEF9        "DigiLog Filter 9"
+    STR_PARAM_ACOEF10       "DigiLog Filter 10"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_PARAM_ACOEF11       "DigiLog Filter 11"
+    STR_PARAM_ANALOGIN0     "DigiLog Input 0"
+    STR_PARAM_ANALOGIN1     "DigiLog Input 1"
+    STR_PARAM_ANALOGIN2     "DigiLog Input 2"
+    STR_PARAM_ANALOGIN3     "DigiLog Input 3"
+    STR_PARAM_ANALOGIN4     "DigiLog Input 4"
+    STR_PARAM_ANALOGIN5     "DigiLog Input 5"
+    STR_PARAM_ANALOGIN6     "DigiLog Input 6"
+    STR_PARAM_ANALOGIN7     "DigiLog Input 7"
+    STR_PARAM_ANALOGIN8     "DigiLog Input 8"
+    STR_PARAM_ANALOGIN9     "DigiLog Input 9"
+    STR_PARAM_ANALOGIN10    "DigiLog Input 10"
+    STR_PARAM_ANALOGIN11    "DigiLog Input 11"
+    STR_PARAM_OFFSET10      "Bipolar Offset 10"
+    STR_PARAM_OFFSET11      "Bipolar Offset 11"
+    STR_PARAM_TP_5V         "+5V Supply"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_PARAM_TP_12V        "+12V Supply"
+    STR_PARAM_MAXMIN_SEL    "Analog Max/Min Select"
+    STR_PARAM_ANALOGMAX     "Analog Max"
+    STR_PARAM_ANALOGMIN     "Analog Min"
+    STR_PARAM_TEST_IN       "Test Input"
+    STR_PARAM_TEST_OUT      "Test Output"
+	STR_PARAM_NFRAGS		"Number of Fragmented Packets"		
+	STR_PARAM_NBADCHKSUM	"Number of Badly Checksumed Packets"	
+	STR_PARAM_NSTRAYS		"Number of Stray Characters"
+	STR_PARAM_IEX_OUT		"Output Register (IEX)"
+	STR_PARAM_IEX_IN		"Input Register (IEX)"
+	STR_PARAM_IEX_DEF_OUT	"Default Output Register (IEX)"
+	STR_PARAM_IEX_IN_RISE	"Input Rise Register (IEX)"
+	STR_PARAM_IEX_IN_FALL	"Input Fall Register (IEX)"
+	STR_PARAM_IEX_USER_OUT	"User Output Request (IEX)"
+	STR_PARAM_USER_EE0		"User Non-Volatile 0"
+	STR_PARAM_USER_EE1		"User Non-Volatile 1"
+	STR_PARAM_USER_EE2		"User Non-Volatile 2"
+	STR_PARAM_USER_EE3		"User Non-Volatile 3"
+	STR_PARAM_USER_RAM0		"User Volatile 0"
+	STR_PARAM_ERR_HIST_INDX	"Shutdown History Index"
+	STR_PARAM_HIST_ELEMENT	"Shutdown History Item"
+	STR_PARAM_CFG_HW		"Hardware Configuration Register"
+	STR_PARAM_CFG_FEAT		"Application Configuration Register"
+	STR_PARAM_CFG_TUNE		"Tuning Configuration Register"
+	STR_PARAM_PART_NUM		"Part Number"
+	STR_PARAM_EE_ACK		"Configuration Update Acknowledge"
+	STR_PARAM_EE_VER		"Configuration Version"
+	STR_PARAM_NETSTAT		"Link Status"
+	STR_ON_TIME				"Powered On Time"
+	STR_CTL_STOP_OUT_REG	"Controlled Stop Output Register"
+	
+	STR_NETERR_APP_CHKSUM	"App Channel Checksum Error Count"
+	STR_NETERR_APP_FRAG		"App Channel Fragment Error Count"
+	STR_NETERR_APP_STRAY	"App Channel Stray Error Count"
+	STR_NETERR_APP_OVERRUN	"App Channel Overrun Error Count"
+	STR_NETERR_DIAG_CHKSUM	"Diagnostic Channel Checksum Error Count"
+	STR_NETERR_DIAG_FRAG	"Diagnostic Channel Fragment Error Count"
+	STR_NETERR_DIAG_STRAY	"Diagnostic Channel Stray Error Count"
+	STR_NETERR_DIAG_OVERRUN	"Diagnostic Channel Overrun Error Count"
+	STR_NETERR_LOW_VOLTS	"Network Power Brown Out Count"
+	STR_P_BAD_TSPD_CNT		"Bad TSPD Event Count"
+	STR_P_BAD_SLOT_CNT		"Bad Slot Event Count"
+	STR_P_LOAD_SLOT0	 	"Slot 0 loading"
+	STR_P_LOAD_SLOT1	 	"Slot 1 loading"
+	STR_P_LOAD_SLOT2	 	"Slot 2 loading"
+	STR_P_LOAD_SLOT3	 	"Slot 3 loading"
+	STR_P_AVG_LOAD	 		"Average loading"
+	STR_PARAM_TP_REF		"Reference Supply"
+	STR_USR_DESC0			"User Description (0)"
+	STR_USR_DESC1			"User Description (1)"
+	STR_USR_DESC2			"User Description (2)"
+	STR_USR_DESC3			"User Description (2)"
+	STR_USR_DESC4			"User Description (4)"
+	STR_PARAM_POSN_CAP_INA_HI_SPD "Input A (high-speed) Position Capture"
+	STR_PARAM_POSN_CAP_INB 	"Input B Position Capture"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DRV_VECTOR_RATE     "Vector Update Rate"
+    STR_DRV_ENC_DENS        "Encoder Density"
+    STR_DRV_POLES           "Motor Poles"
+    STR_DRV_MTR_KE          "Motor Torque/Force Constant [Ke]"
+    STR_DRV_CMD_DENS        "Command Unit Density"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DRV_MTR_OHMS        "Motor Ph-Ph Resistance"
+    STR_DRV_MTR_ELEC_TC     "Motor Electrical Time Constant"
+    STR_DRV_RO              "Reference Offset"
+    STR_DRV_RMS_LIM         "Max. Continuous (RMS) Motor Current"
+    STR_DRV_RMS_TC          "Max. Time @ 100% Output"
+    STR_DRV_RMS_INIT	    "RMS initial level on reset"
+    STR_DRV_SPEED_LIM       "Mtr. Encoder Max. Freq."
+    STR_DRV_COM_CAP         "Commutation Edge Capture"
+    STR_DRV_ANGLE           "Commutation Angle"
+    STR_DRV_KIP             "Kip"
+    STR_DRV_KII             "Kii"
+    STR_DRV_KV              "Kv"
+    STR_DRV_KP              "Kp"
+    STR_DRV_KPL             "Kpl"
+    STR_DRV_KI              "Ki"
+    STR_DRV_KFV             "Kfv"
+    STR_DRV_KFA             "Kfa"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DRV_KFJ             "Kfj"
+    STR_DRV_KFF             "Kff"
+    STR_DRV_KNV             "Knv"
+    STR_DRV_KR              "Kr"
+    STR_DRV_TRQ_BIAS        "Torque/Force Bias"
+    STR_DRV_MON0_AMPL       "Monitor 0-Amplitude"
+    STR_DRV_MON0_VAR        "Monitor 0-Variable"
+    STR_DRV_MON0_FILT       "Monitor 0-Filter"
+    STR_DRV_MON1_AMPL       "Monitor 1-Amplitude"
+    STR_DRV_MON1_VAR        "Monitor 1-Variable"
+    STR_DRV_MON1_FILT       "Monitor 1-Filter"
+	STR_DRV_KNV_AH			"Knv(Anti-Hunt)"
+	STR_DRV_ANTIHUNT2		"AntiHunt 2"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+	STR_DRV_TRQ_LIM			"Torque/Force Limit"
+    STR_DRV_NEG_TRQ_LIM     "Negative Torque Limit"
+    STR_DRV_TRK_ERR_LIM     "Tracking Error Limit"
+    STR_DRV_CPL_ERR_LIM     "Coupling Error Limit"
+    STR_DRV_MV_DN_TC        "Move Done Time Const."
+    STR_DRV_LPB_WINDOW      "Logic Power Backup Recovery Window"
+    STR_DRV_READY_DELAY     "Delay-Power-up to Ready"
+    STR_DRV_SERVO_DELAY     "Delay-Power-up to Servo"
+    STR_DRV_TRQ_FLDBACK     "Torque/Force Foldback Level"
+    STR_DRV_HS_TRQ_TRIP     "Hard Stop - Threshold"
+    STR_DRV_HS_TC           "Hard Stop - Qualify Time"
+    STR_DRV_TRQ_REL_TC      "Relax Time"
+    STR_DRV_BUS_VOLTS       "Bus Voltage"
+    STR_DRV_DRV_I_MAX       "Maximum Output Current"
+    STR_DRV_RMS_MAX         "Maximum Drive RMS"
+    STR_DRV_RMS_MAX_TC      "Longest Drive RMS TC"
+    STR_DRV_TP_ANA_IN       "Analog Input Test Point"
+    STR_DRV_TP_IOP          "I/O Testpoint"
+    STR_DRV_TP_IR			"R Channel Testpoint"
+    STR_DRV_TP_IS			"S Channel Testpoint"
+    STR_DRV_ENC_RES         "Encoder Resolution"
+    STR_DRV_TEMPERATURE     "Heatsink Temperature"
+    STR_DRV_DIRTY           "Configuration Changes"
+    STR_DRV_CONFIG          "Drive Configuration"
+    STR_DRV_FUZZ_AP         "Fuzzy Aperture"
+    STR_DRV_FUZZ_HYST       "Fuzzy Hysteresis"
+    STR_DRV_RMS_LEVEL       "RMS Level"
+    STR_DRV_TRQ_FLDBACK_NEG "Torque/Force Foldback Level (neg)"
+    STR_DRV_HEATSINK        "Heatsink Temperature"
+    STR_DRV_STATUS          "Drive Status (accum)"
+	STR_DRV_STATUS_RT		"Drive Status (real-time)"
+    STR_DRV_TRQ_FLDBACK_POS "Torque/Force Foldback Level (pos)"
+    STR_DRV_POS_TRQ_LIM     "Positive Torque Limit"
+	STR_DRV_TP_5V			"5V Testpoint"
+	STR_DRV_TP_16V			"16V Testpoint"
+	STR_DRV_TP_IBUS			"IBUS Testpoint"
+	STR_EXT_CONFIG			"Extended Configuration"
+	STR_DRV_IR_CAL			"R Sensor calibration" 
+	STR_DRV_IS_CAL			"S Sensor calibration"
+	STR_DRV_VBUS_CAL		"Bus voltage calibration"
+	STR_DRV_TP_VBUS			"VBUS Testpoint"
+	STR_DRV_TRQ_CMD			"Torque/Force Commanded"
+	STR_DRV_TRQ_MEAS		"Torque/Force Measured"
+	STR_DRV_TRQ_FB_POS_TC	"Positive Torque/Force Foldback Release Time"
+	STR_DRV_TRQ_FB_NEG_TC	"Negative Torque/Force Foldback Release Time"
+	STR_DRV_HS_FB_TC		"Hard-stopped Torque/Force Foldback Release Time"
+	STR_DRV_HS_FLDBACK		"Hard-stopped Torque/Force Foldback"
+	STR_DRV_MVDN_FB			"Move Done Torque/Force Foldback"
+	STR_DRV_MVDN_FB_TC		"Move Done Torque/Force Foldback Release Time"
+	STR_DRV_CLAMP_FB		"Clamping Torque/Force Foldback"
+	STR_DRV_CLAMP_FB_TC		"Clamping Torque/Force Foldback Release Time"
+	STR_DRV_ADC_MAX			"ADC maximum scale"
+	STR_PARAM_FLOW_IN_TP	"Flow Control In Test Point"	
+	STR_PARAM_FLOW_OUT_TP	"Flow Control Out Test Point"
+	STR_DRV_HLESS_TRQ		"Commutation Sensorless Startup Torque/Force"
+	STR_DRV_HS_QUAL_SPEED	"Hard-stop Qualify Velocity"
+	AVAILABLE____6			""
+	AVAILABLE____7			""
+	STR_DRV_TP_IR_FILT		"R Sensor Reading(filtered)"
+	STR_DRV_TP_IS_FILT		"S Sensor Reading(filtered)"
+	STR_WARN_RT				"Warning Register"		
+	STR_USER_WARN_MASK_REG	"Warning Mask Register"
+	STR_USER_ALERT_MASK_REG	"Alert Mask Register"
+	STR_WARN_ACC			"Warning Register (accumulating)"
+	STR_PARAM_ACC_MAX		"Max. Accel Used"
+	STR_PARAM_TP_REF_SIM	"Ref. Supply (adjust)"
+	STR_DRV_BUS_VOLTS_SIM	"Bus Supply (adjust)"
+	STR_ENC_QUAL			"Encoder Alignment Register"
+	STR_SLESS_MIN_VOLTS		"Min Sensor-less Bus V"
+	STR_SLESS_MIN_I			"Min Sensor-less I"
+	STR_SLESS_MAX_I			"Max Sensor-less I"
+	STR_SLESS_MIN_PH_I		"Min Sensor-less phase I"
+	STR_SLESS_MAX_I_DIFF	"Max non-dominant phase I diff"
+	STR_P_IR_OFFSET			"Ir Offset"
+	STR_P_IS_OFFSET			"Is Offset"
+	STR_BUS_AT_ENBL			"Bus @ Enable"
+	STR_DRV_HS_TRQ_LIM		"Maximum Torque/Force during Hardstop"
+	STR_COMM_LOW_V			"Communications Only Mode voltage"
+END
+
+// NCS specific strings
+STRINGTABLE DISCARDABLE 
+BEGIN
+	STR_PARAM_SAFESTATUS	"Safety Status"
+	STR_PARAM_LASTSAFESTATUS "Last Safety Status"
+	STR_OUT_REQ_REG			"Output Request Register"
+	STR_PARAM_FAN_SPEED		"Fan Speed"	
+	STR_PARAM_FAN_SPEED_MIN	"Fan Speed (minimum)"
+END
+
+
+// New Eclipse parameters for Meridian Drive
+STRINGTABLE DISCARDABLE 
+BEGIN
+	STR_P_TEMP_SIM				"Heatsink temp simulation"
+	STR_P_DRV_PWR_LIM_EXP		"Km Factor"
+	STR_P_DRV_RES_MIN			"Km Min R"
+	STR_P_FAN_ON_TEMP			"Fan On Temp"
+	STR_P_DSP_INFO				"Part Identifier"
+	STR_P_IB_FILT_TC			"Ibus RMS Time Constant"
+	STR_P_IB_TRIP				"Ibus Shutdown Limit"
+	STR_P_PHASE_TRIP			"Phase Over-Current Limit"
+	STR_P_IB_RT					"Ibus (peak)" 
+	STR_P_IB_RMS				"Ibus Level"
+	STR_P_PWBA_TEMP				"PWBA temp"
+	STR_P_IR_IS_TP_FILT_TC		"Ir/Is TP Filter"
+	STR_DRV_TRK_MIN				"Maximum Tracking Error"
+	STR_DRV_TRK_MAX				"Maximum Tracking Error"
+	STR_DRV_AH_HOLDOFF			"Anti-Hunt Holdoff"
+	STR_DRV_LD_SPEED_LIM		"Ld. Encoder Max. Freq."
+	STR_P_TSPD					"Servo TSPD"
+	STR_DRV_STEPPER_TRQ			"Stepper running torque"
+	STR_DRV_STEP_IDLE_TRQ		"Stepper idle torque"
+	STR_DRV_STEP_ACC_TRQ		"Stepper accel torque"
+	STR_DRV_STEP_FB_TC			"Stepper Torque/Force change time constant"
+	STR_DRV_STEP_DENS			"Microsteps per turn"
+	STR_DRV_COMM_CHK_ANGLE_LIM	"Comm Check Angle Limit"
+	STR_DRV_HLESS_RAMPUP_TIME	"Sensorless Startup Torque/Force Rampup Time"
+	STR_DRV_HLESS_SWEEP_TIME	"Sensorless Startup Torque/Force Sweep Time"
+	STR_DRV_HLESS_SETTLE_TIME	"Sensorless Startup Torque/Force Settle Time"
+	STR_DRV_TRQ_FILT_TC		"Torque/Force Request Filter Time Constant"
+	STR_DRV_AH_GAIN			"Anti-Hunt gain"
+	STR_DRV_KZERO			"Kzero"
+	STR_DRV_IZERO			"Izero"
+	STR_DRV_TARGET_WIN		"Target Window"
+	STR_DRV_STAB_WIN			"Stability Window"
+	STR_DISABLE_TC				"Enable Input Qualification"		
+	STR_DISABLE_PULSE_TC			"Enable Pulse Qualification"	
+	STR_INPUT2_TC			"Input B Qualification"				
+	STR_INPUT_MASKS				"Input AND/OR Mask Register"		
+	STR_INPUT1_TC			"Input A Qualification"				
+END
+
+// IEX feature strings
+STRINGTABLE DISCARDABLE 
+BEGIN
+	STR_P_IEX_SUFFIX		" (IEX)"
+	STR_P_IEX_USER_OUT			"User Output Request (IEX)"		
+	STR_P_IEX_IN_RISE			"Inputs Risen (IEX)"
+	STR_P_IEX_IN_FALL			"Inputs Fallen (IEX)"
+	STR_P_IEX_STOP_OUT			"Node Stop Default (IEX)"
+	STR_P_IEX_GLITCH_TOLERANCE	"Glitch Tolerance Limit (IEX)"
+	STR_P_IEX_STATE_REG			"Status Register (IEX)"
+	STR_P_IEX_RISE_ATTN_MASK	"Inputs Risen Attention Mask (IEX)"
+	STR_P_IEX_FALL_ATTN_MASK	"Inputs Fallen Attention Mask (IEX)"
+	STR_P_IEX_IN_ATTN_MASK		"Inputs Attention Mask (IEX)"
+
+	STR_P_IEX_OUT_REG			"Output Reg. (IEX)"
+	STR_P_IEX_IN_REG			"Input Reg. (IEX)"
+END
+
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_TICK                "quad. count"
+    STR_US                  "us"
+    STR_MS                  "ms"
+    STR_S                   "s"
+    STR_TICK_MS             "K ticks/s"
+    STR_TICK_US             "M ticks/s"
+    STR_TICK_MS2            "K ticks/s/s"
+    STR_TICK_MSAMP          "K ticks/sample T"
+    STR_TICK_USAMP          "M ticks/sample T"
+    STR_TICK_MSAMP2         "K ticks/sample T^2"
+    STR_SAMPLE              "sample times"
+    STR_POSN                "position units"
+    STR_VEL                 "velocity units"
+    STR_HZ                  "Hz"
+    STR_MICRON              "micron"
+    STR_OHMS                "Ohms"
+    STR_DEG_ELECT           "degrees (elect.)"
+    STR_VOLTS               "Volts"
+    STR_AMPS                "Amperes"
+    STR_PCT_MAX             "% of max"
+    STR_DEG_C               "degrees(C)"
+	STR_RPM					"RPM"
+	STR_HOURS				"hours"
+END
+
+////////////////////
+// Error Messages //
+////////////////////
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+	STR_ERR_OK				    "OK"
+	STR_ERR_FAIL				"Function failed."
+	STR_ERR_TIMEOUT				"Failed due to time-out"
+	STR_ERR_CHECKSUM			"Packet checksum error."
+	STR_ERR_DEV_ADDR			"Device selected is out of range"
+	STR_ERR_TOO_MANY			"There are too many nodes on the link."
+	STR_ERR_RESP_FMT			"Response is garbled."
+	STR_ERR_RESP_ADDR			"Response is from wrong node."
+	STR_ERR_OFFLINE				"Node is offline."
+	STR_ERR_PARAM_RANGE			"Parameter is out of range."
+	STR_ERR_MEM_LOW				"Memory is low."
+	STR_ERR_OS					"Operating System Error: %d."
+	STR_ERR_CLOSED				"Attempting to use a closed Link Controller."
+	STR_ERR_VALUE				"Value requested is invalid."
+	STR_ERR_FRAME				"Command packet error."
+	STR_ERR_UNKN_DEVICE			"Attempting to use an unknown node."
+	STR_ERR_DEV_WAIT_TO			"Time-out waiting for command access"
+	STR_ERR_PKT_ERR				"Packet length != buffer length."
+	STR_ERR_BUF_OVERFLOW		"RX buffer overflow."
+	STR_ERR_RX_ACCESS			"RX buffer access/sync problem."
+	STR_ERR_NOT_IMPL			"Feature not implemented."
+	STR_ERR_PORT_PROBLEM		"Port(s) failed to open, already open, or non-existent."
+	STR_ERR_TX_BUSY				"TX Buffer full"
+	STR_ERR_IN_SERIAL_PORT		"Can't command in serial port mode."
+	STR_ERR_PARAM_NOT_INIT		"Parameter Database not initialized."
+	STR_ERR_TEST_INCOMPLETE		"Initialization tests incomplete due to lack of diagnostic firmware."
+	STR_ERR_IRQ_FAILED			"Interrupt interface appears broken."
+	STR_ERR_CMD_OFFLINE			"Command attempt while link offline."
+	STR_ERR_ADDR_LOCK			"Address is locked"
+	STR_ERR_RESOURCE_BUSY		"Resource to complete command is busy"
+	STR_ERR_ATTN_OVERRUN		"Attention FIFO over-run"
+	STR_ERR_NO_TEST_INIT_ERR	"Initialization tests incomplete due to old firmware/further errors."
+	STR_ERR_P2P_MOVE_TIMEOUT	"Repeat-Move Time Limit Exceeded:  Use a script for moves >8 seconds"
+	STR_ERR_P2P_DELAY_TIMEOUT	"Repeat-Move Delay did not complete in time."
+	STR_ERR_DEPRECATED			"Attempt to use deprecated API function"	
+	STR_ERR_NET_ERRS			"Link errors detected"			
+	STR_ERR_NO_NODES			"No Nodes Detected"
+	STR_ERR_DATAACQ_ERR			"Data acquisition gap in the stream due to invalid sequence."		
+	STR_ERR_DATAACQ_EMPTY		"There are no data points in the buffer."
+	STR_ERR_BADARG				"Bad API call argument."
+	STR_ERR_WRONG_NODE_TYPE		"Interaction with wrong node type."
+	STR_ERR_BAUD_NOT_SUPPORTED	"Serial Port does not support requested rate."
+	STR_ERR_SEND_FAILED			"Command failed to transfer."
+	STR_ERR_SEND_LOCKED			"Could not acquire NC command interface." 
+	STR_ERR_SEND_UNLOCK			"Could not release NC command interface."
+	STR_ERR_RESP_FAILED			"Response failed to transfer."
+	STR_ERR_RESP_TIMEOUT		"Response time-out."
+	STR_ERR_CMD_TIMEOUT			"Command timeout."
+	STR_ERR_CANCELED			"Command canceled."
+	STR_ERR_THREAD_CREATE		"Thread create error."
+	STR_ERR_UNSOLICITED			"Unsolicited response detected."
+	STR_ERR_DEF_RESP_TO			"Deferred command response time-out."
+	STR_ERR_ADDR_RANGE			"Response from beyond end of link."
+	STR_ERR_WRONG_SRC			"Response from wrong source."
+	STR_ERR_FLUSH_MANY			"Flush finding many characters."
+	STR_ERR_PRIO_FAILED			"Failed to set thread priority."
+	STR_ERR_NET_DIAG_FAILED		"Link diagnostic problems detected."
+	STR_ERR_RD_COMM_IRQ			"Could not start the read COMM IRQs."
+	STR_ERR_NULL_RETURN			"Read thread returned a NULL buffer."
+	STR_ERR_RESET_FAILED		"Reset command failed."
+	STR_ERR_LOG_CHANGED			"Log changed during read."
+	STR_ERR_DATAACQ_OVERRUN		"Data acquisition overrun."
+	STR_ERR_HOST_APP_OVERRUN	"Host's application serial port over-ran."
+	STR_ERR_HOST_DIAG_OVERRUN	"Host's diagnostic port over-ran."
+	STR_ERR_FILE_WRITE			"Configuration file failed to open for write"	
+	STR_ERR_FILE_OPEN			"Configuration file failed to open for reading, missing or security."	
+	STR_ERR_FILE_WRONG			"Configuration file is not for this node."	
+	STR_ERR_FILE_BAD			"Configuration file has missing or corrupted item(s)."	
+	STR_ERR_FILE_ENABLED		"Configuration file load requires node to be disabled"
+	STR_ERR_CMD_IN_ATTN			"Illegal command attempt from within an Attention Callback function."
+	STR_ERR_APP_NET_ONLY		"Requested function only works on Application net."
+	STR_ERR_24V_OFF				"Request canceled due to lack of 24V supply."
+		
+// Initialization problems
+	STR_ERR_INIT_FAILED_BASE	"Initialization problem (internal error)!"
+	STR_ERR_INIT_FAILED_BASE+1	"Serial Port @ Net Number(s): 0. Initialization problem."
+	STR_ERR_INIT_FAILED_BASE+2	"Serial Port @ Net Number(s): 1. Initialization problem."
+	STR_ERR_INIT_FAILED_BASE+3	"Serial Port @ Net Number(s): 0 & 1. Initialization problem."
+	STR_ERR_INIT_FAILED_BASE+4	"Serial Port @ Net Number(s): 2. Initialization problem."
+	STR_ERR_INIT_FAILED_BASE+5	"Serial Port @ Net Number(s): 2 & 0. Initialization problem."
+	STR_ERR_INIT_FAILED_BASE+6	"Serial Port @ Net Number(s): 2 & 1. Initialization problem."
+	STR_ERR_INIT_FAILED_BASE+7	"Serial Port @ Net Number(s): 2 & 1 & 0. Initialization problem."
+	
+	STR_ERR_PORT_FAILED_BASE	"Port open problem (internal error)!"
+	STR_ERR_PORT_FAILED_BASE+1	"Serial Port @ Net Number(s): 0. Failed to open error: busy or missing."
+	STR_ERR_PORT_FAILED_BASE+2	"Serial Port @ Net Number(s): 1. Failed to open error: busy or missing."
+	STR_ERR_PORT_FAILED_BASE+3	"Serial Port @ Net Number(s): 0 & 1. Failed to open error: busy or missing."
+	STR_ERR_PORT_FAILED_BASE+4	"Serial Port @ Net Number(s): 2. Failed to open error: busy or missing."
+	STR_ERR_PORT_FAILED_BASE+5	"Serial Port @ Net Number(s): 2 & 0. Failed to open error: busy or missing."
+	STR_ERR_PORT_FAILED_BASE+6	"Serial Port @ Net Number(s): 2 & 1. Failed to open error: busy or missing."
+	STR_ERR_PORT_FAILED_BASE+7	"Serial Port @ Net Number(s): 2 & 1 & 0. Failed to open error: busy or missing."
+	
+	STR_ERR_BAUD_FAILED_BASE	"Port baud problem (internal error)!"
+	STR_ERR_BAUD_FAILED_BASE+1	"Serial Port @ Net Number(s): 0. Doesn't support baud rate."
+	STR_ERR_BAUD_FAILED_BASE+2	"Serial Port @ Net Number(s): 1. Doesn't support baud rate."
+	STR_ERR_BAUD_FAILED_BASE+3	"Serial Port @ Net Number(s): 0 & 1. Doesn't support baud rate."
+	STR_ERR_BAUD_FAILED_BASE+4	"Serial Port @ Net Number(s): 2. Doesn't support baud rate."
+	STR_ERR_BAUD_FAILED_BASE+5	"Serial Port @ Net Number(s): 2 & 0. Doesn't support baud rate."
+	STR_ERR_BAUD_FAILED_BASE+6	"Serial Port @ Net Number(s): 2 & 1. Doesn't support baud rate."
+	STR_ERR_BAUD_FAILED_BASE+7	"Serial Port @ Net Number(s): 2 & 1 & 0. Doesn't support baud rate."
+
+	/* ----------- STR_ERR_BASE+MN_ERR_LOGIC_ERR ----------------------------
+	   These are the result of a node rejecting a command
+	*  ---------------------------------------------------------------------- */
+	STR_ERR_NODE_INTERNAL 		"Generic reject by node."
+	STR_ERR_UNKNOWNCMD			"Node Reject: Unknown command on this node."
+ 	STR_ERR_NODE_BADARG			"Node Reject: Bad or missing command arguments."
+ 	STR_ERR_RO					"Node Reject: Attempt to update Read-Only parameter."
+	STR_ERR_EEHW				"Node Reject: EE hardware fault."
+	STR_ERR_ACCESS_LVL			"Node Reject: Access Level Violation"
+	STR_ERR_MOVE_BUFFER_FULL	"Node Reject: Move buffer is full, move ignored."
+	STR_ERR_MOVE_SPEC			"Node Reject: Move rejected, specification problem."
+	STR_ERR_MOVE_NSTOP			"Node Reject: Node-stop blocked move."
+	STR_ERR_MOVE_RANGE			"Node Reject: Move distance attempt out of range."
+	STR_ERR_MOVE_SHUTDOWN		"Node Reject: Move blocked by drive shutdown/disable/limit."
+	STR_ERR_IEX_ERROR			"Node Reject: IEX interaction when stopped."
+	STR_ERR_MOVE_BLOCKED		"Node Reject: Move blocked by alert condition."
+	STR_ERR_IN_MOTION			"Node Reject: Invalid operation while node is in motion."
+	STR_ERR_MOVE_HOMING			"Node Reject: Move blocked while homing runs."
+	
+//	STR_ERR_NC_CHKSUM			"Node Reject: NC detected bad checksum on network packet."
+//	STR_ERR_ND_CHKSUM			"Node Reject: Bad checksum found on a network packet."
+//	STR_ERR_FORMAT				"Node Reject: Command format error."
+//	STR_ERR_FRAGPKT				"Node Reject: Fragmented packet detected."
+//	STR_ERR_UNKNOWNPARAM		"Node Reject: Unknown parameter on this node."
+//	STR_ERR_RX_TIMEOUT			"Node Reject: Response did not arrive in time."
+//	STR_ERR_MOVE				"Node Reject: Move generation error."
+	//STR_ERR_INVALID_NODE		"Node Reject: Invalid node."
+	//STR_ERR_IEEE_FRAGPKT_ERROR	"Node Reject: Fragmented packet detected @ IEEE interface."
+	//STR_ERR_HW_MEM_ERROR		"Node Reject: Command failure from hardware memory error."
+	//STR_ERR_RUNTIME_ERROR		"Node Reject: Unknown run time error."
+	//STR_ERR_MV_ENC_SPD_LIM		"Node Reject: Move rejected, velocity exceeds encoder speed limit."
+	//STR_ERR_IEX_CONFIG			"Node Reject: IEX configuration problem"
+	//STR_ERR_SINE_ARGS			"Node Reject: Sine Vector Parameter Value Illegal"
+	//STR_ERR_MOVE_UNSUPP			"Node Reject: Move not supported."
+	//STR_ERR_PARAM_UNSUPP		"Node Reject: Parameter not supported."
+	/* -------- END OF STR_ERR_BASE+MN_ERR_LOGIC_ERR GROUP ------------------*/
+
+
+
+	/* -------- END OF NETWORK ERROR GROUP ---------------------*/
+	STR_ERR_NET_ERR_BASE+0 		"Link break between node 0 and 1 on the other channel."
+	STR_ERR_NET_ERR_BASE+1 		"Link break between node 1 and 2 on the other channel."
+	STR_ERR_NET_ERR_BASE+2 		"Link break between node 2 and 3 on the other channel."
+	STR_ERR_NET_ERR_BASE+3 		"Link break between node 3 and 4 on the other channel."
+	STR_ERR_NET_ERR_BASE+4 		"Link break between node 4 and 5 on the other channel."
+	STR_ERR_NET_ERR_BASE+5 		"Link break between node 5 and 6 on the other channel."
+	STR_ERR_NET_ERR_BASE+6 		"Link break between node 6 and 7 on the other channel."
+	STR_ERR_NET_ERR_BASE+7 		"Link break between node 7 and 8 on the other channel."
+	STR_ERR_NET_ERR_BASE+8 		"Link break between node 8 and 9 on the other channel."
+	STR_ERR_NET_ERR_BASE+9 		"Link break between node 9 and 10 on the other channel."
+	STR_ERR_NET_ERR_BASE+10		"Link break between node 10 and 11 on the other channel."
+	STR_ERR_NET_ERR_BASE+11		"Link break between node 11 and 12 on the other channel."
+	STR_ERR_NET_ERR_BASE+12		"Link break between node 12 and 13 on the other channel."
+	STR_ERR_NET_ERR_BASE+13		"Link break between node 13 and 14 on the other channel."
+	STR_ERR_NET_ERR_BASE+14		"Link break between node 14 and 15 on the other channel."
+	STR_ERR_NET_ERR_BASE+15		"Link break between node 15 and the host on the other channel."
+
+	STR_ERR_NET_ERR_BASE+16 	"Link break between node 0 and 1 on app. channel"
+	STR_ERR_NET_ERR_BASE+17 	"Link break between node 1 and 2 on app. channel"
+	STR_ERR_NET_ERR_BASE+18		"Link break between node 2 and 3 on app. channel"
+	STR_ERR_NET_ERR_BASE+19		"Link break between node 3 and 4 on app. channel"
+	STR_ERR_NET_ERR_BASE+20		"Link break between node 4 and 5 on app. channel"
+	STR_ERR_NET_ERR_BASE+21		"Link break between node 5 and 6 on app. channel"
+	STR_ERR_NET_ERR_BASE+22		"Link break between node 6 and 7 on app. channel"
+	STR_ERR_NET_ERR_BASE+23		"Link break between node 7 and 8 on app. channel"
+	STR_ERR_NET_ERR_BASE+24		"Link break between node 8 and 9 on app. channel"
+	STR_ERR_NET_ERR_BASE+25		"Link break between node 9 and 10 on app. channel"
+	STR_ERR_NET_ERR_BASE+26		"Link break between node 10 and 11 on app. channel"
+	STR_ERR_NET_ERR_BASE+27		"Link break between node 11 and 12 on app. channel"
+	STR_ERR_NET_ERR_BASE+28		"Link break between node 12 and 13 on app. channel"
+	STR_ERR_NET_ERR_BASE+29		"Link break between node 13 and 14 on app. channel"
+	STR_ERR_NET_ERR_BASE+30		"Link break between node 14 and 15 on app. channel"
+	STR_ERR_NET_ERR_BASE+31		"Link break between node 15 and the host on app. channel"
+
+	STR_ERR_NET_ERR_BASE+32 	"Link break after 1 node from ConMod J1 (black) connector"
+	STR_ERR_NET_ERR_BASE+33 	"Link break after 2 nodes from ConMod J1 (black) connector"
+	STR_ERR_NET_ERR_BASE+34		"Link break after 3 nodes from ConMod J1 (black) connector"
+	STR_ERR_NET_ERR_BASE+35		"Link break after 4 nodes from ConMod J1 (black) connector"
+	STR_ERR_NET_ERR_BASE+36		"Link break after 5 nodes from ConMod J1 (black) connector"
+	STR_ERR_NET_ERR_BASE+37		"Link break after 6 nodes from ConMod J1 (black) connector"
+	STR_ERR_NET_ERR_BASE+38		"Link break after 7 nodes from ConMod J1 (black) connector"
+	STR_ERR_NET_ERR_BASE+39		"Link break after 8 nodes from ConMod J1 (black) connector"
+	STR_ERR_NET_ERR_BASE+40		"Link break after 9 nodes from ConMod J1 (black) connector"
+	STR_ERR_NET_ERR_BASE+41		"Link break after 10 nodes from ConMod J1 (black) connector"
+	STR_ERR_NET_ERR_BASE+42		"Link break after 11 nodes from ConMod J1 (black) connector"
+	STR_ERR_NET_ERR_BASE+43		"Link break after 12 nodes from ConMod J1 (black) connector"
+	STR_ERR_NET_ERR_BASE+44		"Link break after 13 nodes from ConMod J1 (black) connector"
+	STR_ERR_NET_ERR_BASE+45		"Link break after 14 nodes from ConMod J1 (black) connector"
+	STR_ERR_NET_ERR_BASE+46		"Link break after 15 nodes from ConMod J1 (black) connector"
+	STR_ERR_NET_ERR_BASE+47		"Link break after 16 nodes from ConMod J1 (black) connector"
+
+	STR_ERR_NET_ERR_BASE+48 	"Link break between node 0 and the host on app. channel"
+	STR_ERR_NET_ERR_BASE+49 	"Link break between node 1 and the host on app. channel"
+	STR_ERR_NET_ERR_BASE+50		"Link break between node 2 and the host on app. channel"
+	STR_ERR_NET_ERR_BASE+51		"Link break between node 3 and the host on app. channel"
+	STR_ERR_NET_ERR_BASE+52		"Link break between node 4 and the host on app. channel"
+	STR_ERR_NET_ERR_BASE+53		"Link break between node 5 and the host on app. channel"
+	STR_ERR_NET_ERR_BASE+54		"Link break between node 6 and the host on app. channel"
+	STR_ERR_NET_ERR_BASE+55		"Link break between node 7 and the host on app. channel"
+	STR_ERR_NET_ERR_BASE+56		"Link break between node 8 and the host on app. channel"
+	STR_ERR_NET_ERR_BASE+57		"Link break between node 9 and the host on app. channel"
+	STR_ERR_NET_ERR_BASE+58		"Link break between node 10 and the host on app. channel"
+	STR_ERR_NET_ERR_BASE+59		"Link break between node 11 and the host on app. channel"
+	STR_ERR_NET_ERR_BASE+60		"Link break between node 12 and the host on app. channel"
+	STR_ERR_NET_ERR_BASE+61		"Link break between node 13 and the host on app. channel"
+	STR_ERR_NET_ERR_BASE+62		"Link break between node 14 and the host on app. channel"
+	STR_ERR_NET_ERR_BASE+63		"Link break between node 15 and the host on app. channel"
+
+	STR_ERR_NET_ERR_BASE+64 	"Link break after 1 node from ConMod J1 (black) connector"
+	STR_ERR_NET_ERR_BASE+65 	"Link break after 2 nodes from ConMod J1 (black) connector"
+	STR_ERR_NET_ERR_BASE+66		"Link break after 3 nodes from ConMod J1 (black) connector"
+	STR_ERR_NET_ERR_BASE+67		"Link break after 4 nodes from ConMod J1 (black) connector"
+	STR_ERR_NET_ERR_BASE+68		"Link break after 5 nodes from ConMod J1 (black) connector"
+	STR_ERR_NET_ERR_BASE+69		"Link break after 6 nodes from ConMod J1 (black) connector"
+	STR_ERR_NET_ERR_BASE+70		"Link break after 7 nodes from ConMod J1 (black) connector"
+	STR_ERR_NET_ERR_BASE+71		"Link break after 8 nodes from ConMod J1 (black) connector"
+	STR_ERR_NET_ERR_BASE+72		"Link break after 9 nodes from ConMod J1 (black) connector"
+	STR_ERR_NET_ERR_BASE+73		"Link break after 10 nodes from ConMod J1 (black) connector"
+	STR_ERR_NET_ERR_BASE+74		"Link break after 11 nodes from ConMod J1 (black) connector"
+	STR_ERR_NET_ERR_BASE+75		"Link break after 12 nodes from ConMod J1 (black) connector"
+	STR_ERR_NET_ERR_BASE+76		"Link break after 13 nodes from ConMod J1 (black) connector"
+	STR_ERR_NET_ERR_BASE+77		"Link break after 14 nodes from ConMod J1 (black) connector"
+	STR_ERR_NET_ERR_BASE+78		"Link break after 15 nodes from ConMod J1 (black) connector"
+	STR_ERR_NET_ERR_BASE+79		"Link break after 16 nodes from ConMod J1 (black) connector"
+
+	STR_ERR_NET_ERR_BASE+80 	"Link break between node 0 and the host."
+	STR_ERR_NET_ERR_BASE+81 	"Link break between node 1 and the host."
+	STR_ERR_NET_ERR_BASE+82		"Link break between node 2 and the host."
+	STR_ERR_NET_ERR_BASE+83		"Link break between node 3 and the host."
+	STR_ERR_NET_ERR_BASE+84		"Link break between node 4 and the host."
+	STR_ERR_NET_ERR_BASE+85		"Link break between node 5 and the host."
+	STR_ERR_NET_ERR_BASE+86		"Link break between node 6 and the host."
+	STR_ERR_NET_ERR_BASE+87		"Link break between node 7 and the host."
+	STR_ERR_NET_ERR_BASE+88		"Link break between node 8 and the host."
+	STR_ERR_NET_ERR_BASE+89		"Link break between node 9 and the host."
+	STR_ERR_NET_ERR_BASE+90		"Link break between node 10 and the host."
+	STR_ERR_NET_ERR_BASE+91		"Link break between node 11 and the host."
+	STR_ERR_NET_ERR_BASE+92		"Link break between node 12 and the host."
+	STR_ERR_NET_ERR_BASE+93		"Link break between node 13 and the host."
+	STR_ERR_NET_ERR_BASE+94		"Link break between node 14 and the host."
+	STR_ERR_NET_ERR_BASE+95		"Link break between node 15 and the host."
+
+	STR_ERR_NET_ERR_BASE+0xa0	"Node 0 was unexpectedly found offline."
+	STR_ERR_NET_ERR_BASE+0xa1 	"Node 1 was unexpectedly found offline."
+	STR_ERR_NET_ERR_BASE+0xa2 	"Node 2 was unexpectedly found offline."
+	STR_ERR_NET_ERR_BASE+0xa3 	"Node 3 was unexpectedly found offline."
+	STR_ERR_NET_ERR_BASE+0xa4 	"Node 4 was unexpectedly found offline."
+	STR_ERR_NET_ERR_BASE+0xa5 	"Node 5 was unexpectedly found offline."
+	STR_ERR_NET_ERR_BASE+0xa6 	"Node 6 was unexpectedly found offline."
+	STR_ERR_NET_ERR_BASE+0xa7 	"Node 7 was unexpectedly found offline."
+	STR_ERR_NET_ERR_BASE+0xa8 	"Node 8 was unexpectedly found offline."
+	STR_ERR_NET_ERR_BASE+0xa9 	"Node 9 was unexpectedly found offline."
+	STR_ERR_NET_ERR_BASE+0xaa	"Node 10 was unexpectedly found offline."
+	STR_ERR_NET_ERR_BASE+0xab	"Node 11 was unexpectedly found offline."
+	STR_ERR_NET_ERR_BASE+0xac	"Node 12 was unexpectedly found offline."
+	STR_ERR_NET_ERR_BASE+0xad	"Node 13 was unexpectedly found offline."
+	STR_ERR_NET_ERR_BASE+0xae	"Node 14 was unexpectedly found offline."
+	STR_ERR_NET_ERR_BASE+0xaf	"Node 15 was unexpectedly found offline."
+
+	STR_ERR_BRK_DIAG_LOC_UNKNOWN "Link break before first node from ConMod J1 (black) connector"
+	STR_ERR_BRK_APP_LOC_UNKNOWN  "Link break between host and node 0 on app. channel"
+	STR_ERR_BRK_LOC_UNKNOWN      "Link break between host and node 0"
+
+
+	STR_ERR_NO_NET_CONNECTIVITY	 "Can't detect connectivity on this link."
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+
+
+#endif    // not APSTUDIO_INVOKED
+

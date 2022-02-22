@@ -1,0 +1,43 @@
+//Microsoft Developer Studio generated resource script.
+//
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+	FILEVERSION    VER_FILE_MAJOR,VER_FILE_MINOR,VER_FILE_BUILDNUM,0
+	PRODUCTVERSION VER_PRODUCTVERSION
+	FILEFLAGSMASK  VER_FILEFLAGSMASK
+	#ifdef _DEBUG
+	 FILEFLAGS 0x1L
+	#else
+	 FILEFLAGS 0x0L
+	#endif
+	FILEOS         VER_FILEOS
+	FILETYPE       VER_FILETYPE
+	FILESUBTYPE    VER_FILESUBTYPE
+	BEGIN
+		BLOCK "StringFileInfo"
+		BEGIN
+			BLOCK "040904B0"   /* LANG_ENGLISH/SUBLANG_ENGLISH_US, Unicode CP */
+			BEGIN
+				VALUE "CompanyName",     VER_COMPANYNAME_STR
+				VALUE "FileDescription", VER_FILEDESCRIPTION_STR 
+				VALUE "FileVersion",     VER_FILEVERSION_STR
+				VALUE "InternalName",	 "Meridian Link Driver\0"
+				VALUE "LegalCopyright",  VER_LEGALCOPYRIGHT_STR
+				VALUE "OriginalFilename", VER_INTERNALNAME_STR
+				VALUE "ProductName",     VER_PRODUCTNAME_STR
+				VALUE "ProductVersion",  VER_PRODUCTVERSION_STR
+				VALUE "Comments",		 "Meridian Interface Driver\0"
+			END
+
+		END
+
+		BLOCK "VarFileInfo"
+		BEGIN
+			VALUE "Translation", 0x0409, 0x04B0
+		END
+	END
+

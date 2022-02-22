@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\LibINI\src\dictionary.cpp" />
+    <ClCompile Include="..\LibINI\src\iniparser.cpp" />
+    <ClCompile Include="..\LibWinOS\src\SerialWin32.cpp" />
+    <ClCompile Include="..\LibWinOS\src\tekEventsWin32.cpp" />
+    <ClCompile Include="..\LibWinOS\src\tekThreadsWin32.cpp" />
+    <ClCompile Include="..\LibXML\src\ErrCodeStr.cpp" />
+    <ClCompile Include="..\LibXML\src\pugixml.cpp" />
+    <ClCompile Include="src-win\lnkAccessWin32.cpp" />
+    <ClCompile Include="src\converterLib.cpp" />
+    <ClCompile Include="src\cpmAPI.cpp" />
+    <ClCompile Include="src\cpmClassImpl.cpp" />
+    <ClCompile Include="src\iscAPI.cpp" />
+    <ClCompile Include="src\lnkAccessCommon.cpp" />
+    <ClCompile Include="src\meridianNet.cpp" />
+    <ClCompile Include="src\netCmdAPI.cpp" />
+    <ClCompile Include="src\netCoreFmt.cpp" />
+    <ClCompile Include="src\SerialEx.cpp" />
+    <ClCompile Include="src\sysClassImpl.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\inc\inc-private\sFound\converterLib.h" />
+    <ClInclude Include="..\inc\inc-private\sFound\cpmRegs.h" />
+    <ClInclude Include="..\inc\inc-private\sFound\iscRegs.h" />
+    <ClInclude Include="..\inc\inc-private\sFound\lnkAccessAPI.h" />
+    <ClInclude Include="..\inc\inc-private\sFound\lnkAccessCommon.h" />
+    <ClInclude Include="..\inc\inc-private\sFound\meridianHdrs.h" />
+    <ClInclude Include="..\inc\inc-private\sFound\mnDiags.h" />
+    <ClInclude Include="..\inc\inc-private\sFound\mnParamDefs.h" />
+    <ClInclude Include="..\inc\inc-private\sFound\netCmdAPI.h" />
+    <ClInclude Include="..\inc\inc-private\sFound\netCmdPrivate.h" />
+    <ClInclude Include="..\inc\inc-private\sFound\SerialEx.h" />
+    <ClInclude Include="..\inc\inc-private\sFound\sFoundResource.h" />
+    <ClInclude Include="..\inc\inc-private\sFound\tekEvents.h" />
+    <ClInclude Include="..\inc\inc-private\sFound\tekThreads.h" />
+    <ClInclude Include="..\inc\inc-private\sFound\valkeys.h" />
+    <ClInclude Include="..\inc\inc-private\win\lnkAccessAPIwin32.h" />
+    <ClInclude Include="..\inc\inc-private\win\SerialWin32.h" />
+    <ClInclude Include="..\inc\inc-private\win\tekEventsWin32.h" />
+    <ClInclude Include="..\inc\inc-pub\mnErrors.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-pub\pubCoreRegs.h" />
+    <ClInclude Include="..\inc\inc-pub\pubCpmAdvAPI.h" />
+    <ClInclude Include="..\inc\inc-pub\pubCpmAPI.h" />
+    <ClInclude Include="..\inc\inc-pub\pubCpmCls.h" />
+    <ClInclude Include="..\inc\inc-pub\pubCpmRegs.h" />
+    <ClInclude Include="..\inc\inc-pub\pubDataAcq.h" />
+    <ClInclude Include="..\inc\inc-pub\pubIex.h" />
+    <ClInclude Include="..\inc\inc-pub\pubIQmath.h" />
+    <ClInclude Include="..\inc\inc-pub\pubIscAPI.h" />
+    <ClInclude Include="..\inc\inc-pub\pubIscRegs.h" />
+    <ClInclude Include="..\inc\inc-pub\pubMnNetDef.h" />
+    <ClInclude Include="..\inc\inc-pub\pubMonPort.h" />
+    <ClInclude Include="..\inc\inc-pub\pubMotion.h" />
+    <ClInclude Include="..\inc\inc-pub\pubNetAPI.h" />
+    <ClInclude Include="..\inc\inc-pub\pubPwrReg.h" />
+    <ClInclude Include="..\inc\inc-pub\pubRegFldCommon.h" />
+    <ClInclude Include="..\inc\inc-pub\pubSysCls.h" />
+    <ClInclude Include="..\inc\inc-pub\TeknicDevID.h" />
+    <ClInclude Include="..\inc\inc-pub\tekTypes.h" />
+    <ClInclude Include="..\LibINI\inc\dictionary.h" />
+    <ClInclude Include="..\LibINI\inc\iniparser.h" />
+    <ClInclude Include="..\LibWinOS\inc\lnkAccessAPIwin32.h" />
+    <ClInclude Include="..\LibWinOS\inc\SerialWin32.h" />
+    <ClInclude Include="..\LibWinOS\inc\tekEventsWin32.h" />
+    <ClInclude Include="..\LibXML\ErrCodeStr.hpp" />
+    <ClInclude Include="..\LibXML\inc\pugiconfig.hpp" />
+    <ClInclude Include="..\LibXML\inc\pugixml.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src-win\sFoundationDLL.rc2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src-win\sFoundationDLL.rc" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{c34a0dc6-cf9f-4252-bbb0-c8f653df0fac}</ProjectGuid>
+    <Keyword>DynamicLibrary</Keyword>
+    <ProjectName>sFoundation20</ProjectName>
+    <RootNamespace>sFoundation20</RootNamespace>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <GenerateManifest>true</GenerateManifest>
+    <IgnoreImportLibrary>false</IgnoreImportLibrary>
+    <IncludePath>inc-lcl;../inc/inc-pub;../Driver_Extras/inc;../inc/inc-private;../inc/inc-private/win;../inc/inc-private/sFound;../libxml/inc;../libini/inc;../libWinOS/inc;$(IncludePath);$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <EmbedManifest>true</EmbedManifest>
+    <OutDir>$(ProjectDir)win\$(Configuration)\$(Platform)\</OutDir>
+    <IntDir>$(ProjectDir)tmps\$(Configuration)\$(Platform)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <GenerateManifest>true</GenerateManifest>
+    <IgnoreImportLibrary>false</IgnoreImportLibrary>
+    <IncludePath>inc-lcl;../inc/inc-pub;../Driver_Extras/inc;../inc/inc-private;../inc/inc-private/win;../inc/inc-private/sFound;../libxml/inc;../libini/inc;../libWinOS/inc;$(IncludePath);$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <EmbedManifest>true</EmbedManifest>
+    <OutDir>$(ProjectDir)win\$(Configuration)\$(Platform)\</OutDir>
+    <IntDir>$(ProjectDir)tmps\$(Configuration)\$(Platform)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <GenerateManifest>true</GenerateManifest>
+    <IgnoreImportLibrary>false</IgnoreImportLibrary>
+    <IncludePath>inc-lcl;../inc/inc-pub;../Driver_Extras/inc;../inc/inc-private;../inc/inc-private/win;../inc/inc-private/sFound;../libxml/inc;../libini/inc;../libWinOS/inc;$(IncludePath);$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <EmbedManifest>true</EmbedManifest>
+    <OutDir>$(ProjectDir)win\$(Configuration)\$(Platform)\</OutDir>
+    <IntDir>$(ProjectDir)tmps\$(Configuration)\$(Platform)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <GenerateManifest>true</GenerateManifest>
+    <IgnoreImportLibrary>false</IgnoreImportLibrary>
+    <IncludePath>inc-lcl;../inc/inc-pub;../Driver_Extras/inc;../inc/inc-private;../inc/inc-private/win;../inc/inc-private/sFound;../libxml/inc;../libini/inc;../libWinOS/inc;$(IncludePath);$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <EmbedManifest>true</EmbedManifest>
+    <OutDir>$(ProjectDir)win\$(Configuration)\$(Platform)\</OutDir>
+    <IntDir>$(ProjectDir)tmps\$(Configuration)\$(Platform)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\inc\inc-pub;$(ProjectDir)..\inc\inc-private;$(ProjectDir)..\inc;$(ProjectDir)..\LibXML\inc;$(ProjectDir)..\LibINI\inc;$(ProjectDir)..\LibWinOS\inc;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_UNICODE;UNICODE;_DLL;_WINDLL;_WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CompileAsManaged>false</CompileAsManaged>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+      <AdditionalDependencies>version.lib;Winmm.lib;Uuid.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\inc\inc-pub;$(ProjectDir)..\inc\inc-private;$(ProjectDir)..\inc;$(ProjectDir)..\LibXML\inc;$(ProjectDir)..\LibINI\inc;$(ProjectDir)..\LibWinOS\inc;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_WINDOWS;_UNICODE;UNICODE;_DLL;_WINDLL;_WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CompileAsManaged>false</CompileAsManaged>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+      <AdditionalDependencies>version.lib;Winmm.lib;Uuid.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|arm'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\inc\inc-pub;$(ProjectDir)..\inc\inc-private;$(ProjectDir)..\inc;$(ProjectDir)..\LibXML\inc;$(ProjectDir)..\LibINI\inc;$(ProjectDir)..\LibWinOS\inc;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_DLL;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|arm'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\inc\inc-pub;$(ProjectDir)..\inc\inc-private;$(ProjectDir)..\inc;$(ProjectDir)..\LibXML\inc;$(ProjectDir)..\LibINI\inc;$(ProjectDir)..\LibWinOS\inc;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_DLL;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\inc\inc-pub;$(ProjectDir)..\inc\inc-private;$(ProjectDir)..\inc;$(ProjectDir)..\LibXML\inc;$(ProjectDir)..\LibINI\inc;$(ProjectDir)..\LibWinOS\inc;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_UNICODE;UNICODE;_DLL;_WINDLL;_WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CompileAsManaged>false</CompileAsManaged>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+      <AdditionalDependencies>version.lib;Winmm.lib;Uuid.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\inc\inc-pub;$(ProjectDir)..\inc\inc-private;$(ProjectDir)..\inc;$(ProjectDir)..\LibXML\inc;$(ProjectDir)..\LibINI\inc;$(ProjectDir)..\LibWinOS\inc;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_WINDOWS;_UNICODE;UNICODE;_DLL;_WINDLL;_WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CompileAsManaged>false</CompileAsManaged>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+      <AdditionalDependencies>version.lib;Winmm.lib;Uuid.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

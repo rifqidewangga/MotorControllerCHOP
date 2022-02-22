@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="inc">
+      <UniqueIdentifier>{881fdb29-f02e-4230-b1df-14647eaedb08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\inc-private">
+      <UniqueIdentifier>{87d0f8c5-10ad-4aec-bb3b-9fdca90bbca2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\inc-private\sFound">
+      <UniqueIdentifier>{863ae90a-f496-4de5-ab49-c2e6948d1eea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\inc-private\win">
+      <UniqueIdentifier>{52c77820-b107-4d74-92d7-31ae113960b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{22b32e02-5cfc-44c0-a4b9-cf781e47e04f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src-win">
+      <UniqueIdentifier>{16c07499-0670-4210-a4da-514b55ef70e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libini">
+      <UniqueIdentifier>{a73194e3-7147-4dcd-8ae2-f9ee3d0076d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libini\src">
+      <UniqueIdentifier>{aa926c5f-e9a3-4db4-8394-ba626cbf32d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libini\inc">
+      <UniqueIdentifier>{82ea24d0-de03-4ab2-aa84-da9ce9c14ee6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libWinOS">
+      <UniqueIdentifier>{f340a054-a449-4216-a29f-e1b5556f764f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libWinOS\inc">
+      <UniqueIdentifier>{5847d808-40d7-4229-b7ac-4f111a952245}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libWinOS\src">
+      <UniqueIdentifier>{b46f29ee-fac8-4cda-87c8-9625f74dc3bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libxml">
+      <UniqueIdentifier>{b4c18802-58a9-47b0-89f5-449bf7368286}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libxml\inc">
+      <UniqueIdentifier>{7d650c55-cb60-449e-964e-e849db8717bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libxml\src">
+      <UniqueIdentifier>{f6056a7b-26a9-4502-b3ad-5c2b0214f97b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\inc-pub">
+      <UniqueIdentifier>{bf19da72-709f-4945-a481-277c6adec2e9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\converterLib.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpmAPI.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpmClassImpl.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\iscAPI.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lnkAccessCommon.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\meridianNet.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\netCmdAPI.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\netCoreFmt.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SerialEx.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sysClassImpl.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src-win\lnkAccessWin32.cpp">
+      <Filter>src-win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\LibINI\src\dictionary.cpp">
+      <Filter>libini\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\LibINI\src\iniparser.cpp">
+      <Filter>libini\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\LibWinOS\src\SerialWin32.cpp">
+      <Filter>libWinOS\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\LibWinOS\src\tekEventsWin32.cpp">
+      <Filter>libWinOS\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\LibWinOS\src\tekThreadsWin32.cpp">
+      <Filter>libWinOS\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\LibXML\src\ErrCodeStr.cpp">
+      <Filter>libxml\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\LibXML\src\pugixml.cpp">
+      <Filter>libxml\src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\LibINI\inc\dictionary.h">
+      <Filter>libini\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\LibINI\inc\iniparser.h">
+      <Filter>libini\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\LibWinOS\inc\lnkAccessAPIwin32.h">
+      <Filter>libWinOS\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\LibWinOS\inc\SerialWin32.h">
+      <Filter>libWinOS\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\LibWinOS\inc\tekEventsWin32.h">
+      <Filter>libWinOS\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\LibXML\ErrCodeStr.hpp">
+      <Filter>libxml\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\LibXML\inc\pugiconfig.hpp">
+      <Filter>libxml\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\LibXML\inc\pugixml.hpp">
+      <Filter>libxml\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-private\win\lnkAccessAPIwin32.h">
+      <Filter>inc\inc-private\win</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-private\win\SerialWin32.h">
+      <Filter>inc\inc-private\win</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-private\win\tekEventsWin32.h">
+      <Filter>inc\inc-private\win</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-private\sFound\converterLib.h">
+      <Filter>inc\inc-private\sFound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-private\sFound\cpmRegs.h">
+      <Filter>inc\inc-private\sFound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-private\sFound\iscRegs.h">
+      <Filter>inc\inc-private\sFound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-private\sFound\lnkAccessAPI.h">
+      <Filter>inc\inc-private\sFound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-private\sFound\lnkAccessCommon.h">
+      <Filter>inc\inc-private\sFound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-private\sFound\meridianHdrs.h">
+      <Filter>inc\inc-private\sFound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-private\sFound\mnDiags.h">
+      <Filter>inc\inc-private\sFound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-private\sFound\mnParamDefs.h">
+      <Filter>inc\inc-private\sFound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-private\sFound\netCmdAPI.h">
+      <Filter>inc\inc-private\sFound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-private\sFound\netCmdPrivate.h">
+      <Filter>inc\inc-private\sFound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-private\sFound\SerialEx.h">
+      <Filter>inc\inc-private\sFound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-private\sFound\sFoundResource.h">
+      <Filter>inc\inc-private\sFound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-private\sFound\tekEvents.h">
+      <Filter>inc\inc-private\sFound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-private\sFound\tekThreads.h">
+      <Filter>inc\inc-private\sFound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-private\sFound\valkeys.h">
+      <Filter>inc\inc-private\sFound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-pub\mnErrors.h">
+      <Filter>inc\inc-pub</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-pub\pubCoreRegs.h">
+      <Filter>inc\inc-pub</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-pub\pubCpmAdvAPI.h">
+      <Filter>inc\inc-pub</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-pub\pubCpmAPI.h">
+      <Filter>inc\inc-pub</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-pub\pubCpmCls.h">
+      <Filter>inc\inc-pub</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-pub\pubCpmRegs.h">
+      <Filter>inc\inc-pub</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-pub\pubDataAcq.h">
+      <Filter>inc\inc-pub</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-pub\pubIex.h">
+      <Filter>inc\inc-pub</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-pub\pubIQmath.h">
+      <Filter>inc\inc-pub</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-pub\pubIscAPI.h">
+      <Filter>inc\inc-pub</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-pub\pubIscRegs.h">
+      <Filter>inc\inc-pub</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-pub\pubMnNetDef.h">
+      <Filter>inc\inc-pub</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-pub\pubMonPort.h">
+      <Filter>inc\inc-pub</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-pub\pubMotion.h">
+      <Filter>inc\inc-pub</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-pub\pubNetAPI.h">
+      <Filter>inc\inc-pub</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-pub\pubPwrReg.h">
+      <Filter>inc\inc-pub</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-pub\pubRegFldCommon.h">
+      <Filter>inc\inc-pub</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-pub\pubSysCls.h">
+      <Filter>inc\inc-pub</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-pub\TeknicDevID.h">
+      <Filter>inc\inc-pub</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\inc-pub\tekTypes.h">
+      <Filter>inc\inc-pub</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src-win\sFoundationDLL.rc2">
+      <Filter>src-win</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src-win\sFoundationDLL.rc">
+      <Filter>src-win</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
