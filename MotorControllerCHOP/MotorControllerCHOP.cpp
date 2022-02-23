@@ -23,14 +23,14 @@
 #include <thread>
 #include <chrono>
 
-// Library for ClearView and some constants
-#include "pubSysCls.h"
-using namespace sFnd;
-#define ACC_LIM_RPM_PER_SEC 100000
-#define VEL_LIM_RPM         700
-#define MOVE_DISTANCE_CNTS  10000   
-#define NUM_MOVES           5
-#define TIME_TILL_TIMEOUT   10000   //The timeout used for homing(ms)
+//// Library for ClearView and some constants
+//#include "pubSysCls.h"
+//using namespace sFnd;
+//#define ACC_LIM_RPM_PER_SEC 100000
+//#define VEL_LIM_RPM         700
+//#define MOVE_DISTANCE_CNTS  10000   
+//#define NUM_MOVES           5
+//#define TIME_TILL_TIMEOUT   10000   //The timeout used for homing(ms)
 
 
 // These functions are basic C function, which the DLL loader can find
@@ -50,14 +50,14 @@ FillCHOPPluginInfo(CHOP_PluginInfo *info)
 	// The opType is the unique name for this CHOP. It must start with a 
 	// capital A-Z character, and all the following characters must lower case
 	// or numbers (a-z, 0-9)
-	info->customOPInfo.opType->setString("Customsignal");
+	info->customOPInfo.opType->setString("Motorcontroller");
 
 	// The opLabel is the text that will show up in the OP Create Dialog
-	info->customOPInfo.opLabel->setString("Custom Signal");
+	info->customOPInfo.opLabel->setString("Motor Controller");
 
 	// Information about the author of this OP
-	info->customOPInfo.authorName->setString("Author Name");
-	info->customOPInfo.authorEmail->setString("email@email.com");
+	info->customOPInfo.authorName->setString("Rifqi Dewangga");
+	info->customOPInfo.authorEmail->setString("rifdewangga@gmail.com");
 
 	// This CHOP can work with 0 inputs
 	info->customOPInfo.minInputs = 0;
@@ -90,13 +90,10 @@ DestroyCHOPInstance(CHOP_CPlusPlusBase* instance)
 
 MotorControllerCHOP::MotorControllerCHOP(const OP_NodeInfo* info) : myNodeInfo(info)
 {
-	myExecuteCount = 0;
-	myOffset = 0.0;
 }
 
 MotorControllerCHOP::~MotorControllerCHOP()
 {
-
 }
 
 void
@@ -141,101 +138,19 @@ MotorControllerCHOP::getOutputInfo(CHOP_OutputInfo* info, const OP_Inputs* input
 void
 MotorControllerCHOP::getChannelName(int32_t index, OP_String *name, const OP_Inputs* inputs, void* reserved1)
 {
-	name->setString("chan1");
+	name->setString("MotorController");
 }
 
 void
 MotorControllerCHOP::execute(CHOP_Output* output,
 							  const OP_Inputs* inputs,
 							  void* reserved)
-{
-	myExecuteCount++;
-	
-	double	 scale = inputs->getParDouble("Scale");
-
-	// In this case we'll just take the first input and re-output it scaled.
-
-	if (inputs->getNumInputs() > 0)
-	{
-		// We know the first CHOP has the same number of channels
-		// because we returned false from getOutputInfo. 
-
-		inputs->enablePar("Speed", 0);	// not used
-		inputs->enablePar("Reset", 0);	// not used
-		inputs->enablePar("Shape", 0);	// not used
-
-		int ind = 0;
-		const OP_CHOPInput	*cinput = inputs->getInputCHOP(0);
-
-		for (int i = 0 ; i < output->numChannels; i++)
-		{
-			for (int j = 0; j < output->numSamples; j++)
-			{
-				output->channels[i][j] = float(cinput->getChannelData(i)[ind] * scale);
-				ind++;
-
-				// Make sure we don't read past the end of the CHOP input
-				ind = ind % cinput->numSamples;
-			}
-		}
-
-	}
-	else // If not input is connected, lets output a sine wave instead
-	{
-		inputs->enablePar("Speed", 1);
-		inputs->enablePar("Reset", 1);
-
-		double speed = inputs->getParDouble("Speed");
-		double step = speed * 0.01f;
-
-
-		// menu items can be evaluated as either an integer menu position, or a string
-		int shape = inputs->getParInt("Shape");
-//		const char *shape_str = inputs->getParString("Shape");
-
-		// keep each channel at a different phase
-		double phase = 2.0f * 3.14159f / (float)(output->numChannels);
-
-		// Notice that startIndex and the output->numSamples is used to output a smooth
-		// wave by ensuring that we are outputting a value for each sample
-		// Since we are outputting at 120, for each frame that has passed we'll be
-		// outputing 2 samples (assuming the timeline is running at 60hz).
-
-
-		for (int i = 0; i < output->numChannels; i++)
-		{
-			double offset = myOffset + phase*i;
-
-
-			double v = 0.0f;
-
-			switch(shape)
-			{
-				case 0:		// sine
-					v = sin(offset);
-					break;
-
-				case 1:		// square
-					v = fabs(fmod(offset, 1.0)) > 0.5;
-					break;
-
-				case 2:		// ramp	
-					v = fabs(fmod(offset, 1.0));
-					break;
-			}
-
-
-			v *= scale;
-
-			for (int j = 0; j < output->numSamples; j++)
-			{
-				output->channels[i][j] = float(v);
-				offset += step;
-			}
-		}
-
-		myOffset += step * output->numSamples; 
-	}
+{	
+	iNode = inputs->getParInt("Inode");
+	enable = inputs->getParInt("Enable");
+	counts = inputs->getParDouble("Counts"); // in the real case this should ask from motor controller
+	velocity = inputs->getParDouble("Velocity");
+	acceleration = inputs->getParDouble("Acceleration");
 }
 
 int32_t
@@ -253,25 +168,13 @@ MotorControllerCHOP::getInfoCHOPChan(int32_t index,
 {
 	// This function will be called once for each channel we said we'd want to return
 	// In this example it'll only be called once.
-
-	if (index == 0)
-	{
-		chan->name->setString("executeCount");
-		chan->value = (float)myExecuteCount;
-	}
-
-	if (index == 1)
-	{
-		chan->name->setString("offset");
-		chan->value = (float)myOffset;
-	}
 }
 
 bool		
 MotorControllerCHOP::getInfoDATSize(OP_InfoDATSize* infoSize, void* reserved1)
 {
-	infoSize->rows = 2;
-	infoSize->cols = 2;
+	infoSize->rows = 4;
+	infoSize->cols = 8;
 	// Setting this to false means we'll be assigning values to the table
 	// one row at a time. True means we'll do it one column at a time.
 	infoSize->byColumn = false;
@@ -288,102 +191,133 @@ MotorControllerCHOP::getInfoDATEntries(int32_t index,
 
 	if (index == 0)
 	{
-		// Set the value for the first column
-		entries->values[0]->setString("executeCount");
-
-		// Set the value for the second column
-#ifdef _WIN32
-		sprintf_s(tempBuffer, "%d", myExecuteCount);
-#else // macOS
-		snprintf(tempBuffer, sizeof(tempBuffer), "%d", myExecuteCount);
-#endif
-		entries->values[1]->setString(tempBuffer);
+		entries->values[0]->setString("iNode");
+		entries->values[1]->setString("info");
+		entries->values[2]->setString("enabled");
+		entries->values[3]->setString("position (cnts)");
+		entries->values[4]->setString("velocity (rpm)");
+		entries->values[5]->setString("torque (..)");
+		entries->values[6]->setString("reserved");
+		entries->values[7]->setString("reserved");
 	}
 
 	if (index == 1)
 	{
-		// Set the value for the first column
-		entries->values[0]->setString("offset");
+		for (size_t i = 0; i < 8; i++)
+		{
+			entries->values[i]->setString("");
+		}
+	}
 
-		// Set the value for the second column
+	if (index == 2)
+	{
+		for (size_t i = 0; i < 8; i++)
+		{
+			entries->values[i]->setString("####");
+		}
+	}
+
+	if (index == 3)
+	{
+		 //Set the value for the first column
+		entries->values[0]->setString("debugoutput");
+
+		 //Set the value
 #ifdef _WIN32
-		sprintf_s(tempBuffer, "%g", myOffset);
-#else // macOS
-		snprintf(tempBuffer, sizeof(tempBuffer), "%g", myOffset);
+		sprintf_s(tempBuffer, "%d", iNode);
+		entries->values[1]->setString(tempBuffer);
+		sprintf_s(tempBuffer, "%s", enable?"true":"false");
+		entries->values[2]->setString(tempBuffer);
+		sprintf_s(tempBuffer, "%.1f", counts);
+		entries->values[3]->setString(tempBuffer);
+		sprintf_s(tempBuffer, "%.1f", velocity);
+		entries->values[4]->setString(tempBuffer);
+		sprintf_s(tempBuffer, "%.1f", acceleration);
+		entries->values[5]->setString(tempBuffer);
+		sprintf_s(tempBuffer, "%d", nRotateClicked);
+		entries->values[6]->setString(tempBuffer);
+		entries->values[7]->setString("####");
+
+#else // macOS, should add more to works on macOS
+		snprintf(tempBuffer, sizeof(tempBuffer), "%d", myExecuteCount);
+		entries->values[1]->setString(tempBuffer);
 #endif
-		entries->values[1]->setString( tempBuffer);
 	}
 }
 
 void
 MotorControllerCHOP::setupParameters(OP_ParameterManager* manager, void *reserved1)
 {
-	// speed
-	{
-		OP_NumericParameter	np;
-
-		np.name = "Speed";
-		np.label = "Speed";
-		np.defaultValues[0] = 1.0;
-		np.minSliders[0] = -10.0;
-		np.maxSliders[0] =  10.0;
-		
-		OP_ParAppendResult res = manager->appendFloat(np);
-		assert(res == OP_ParAppendResult::Success);
-	}
-
-	// scale
-	{
-		OP_NumericParameter	np;
-
-		np.name = "Scale";
-		np.label = "Scale";
-		np.defaultValues[0] = 1.0;
-		np.minSliders[0] = -10.0;
-		np.maxSliders[0] =  10.0;
-		
-		OP_ParAppendResult res = manager->appendFloat(np);
-		assert(res == OP_ParAppendResult::Success);
-	}
-
-	// shape
+	// iNode
 	{
 		OP_StringParameter	sp;
 
-		sp.name = "Shape";
-		sp.label = "Shape";
+		sp.name = "Inode";
+		sp.label = "Inode";
+		sp.defaultValue = "0";
 
-		sp.defaultValue = "Sine";
+		const char* names[] = { "0", "1", "2", "3", "4", "5", "6", "7"};
+		const char* labels[] = { "0", "1", "2", "3", "4", "5", "6", "7" };
 
-		const char *names[] = { "Sine", "Square", "Ramp" };
-		const char *labels[] = { "Sine", "Square", "Ramp" };
-
-		OP_ParAppendResult res = manager->appendMenu(sp, 3, names, labels);
+		OP_ParAppendResult res = manager->appendMenu(sp, 8, names, labels);
 		assert(res == OP_ParAppendResult::Success);
 	}
 
-	// pause for 1 second
+	// enable/disable motor
 	{
 		OP_NumericParameter	np;
 
-		np.name = "Pause";
-		np.label = "Pause";
+		np.name = "Enable";
+		np.label = "Enable";
+		np.defaultValues[0] = 0.0;
 
-		OP_ParAppendResult res = manager->appendPulse(np);
+		OP_ParAppendResult res = manager->appendToggle(np);
 		assert(res == OP_ParAppendResult::Success);
 	}
 
-	// pulse
+	// Counts
 	{
 		OP_NumericParameter	np;
 
-		np.name = "Reset";
-		np.label = "Reset";
+		np.name = "Counts";
+		np.label = "Counts";
+		np.defaultValues[0] = 800.0;
+		np.minSliders[0] = -100000.0;
+		np.maxSliders[0] = 100000.0;
 
-		OP_ParAppendResult res = manager->appendPulse(np);
+		OP_ParAppendResult res = manager->appendFloat(np);
 		assert(res == OP_ParAppendResult::Success);
 	}
 
+	// velocity
+	{
+		OP_NumericParameter	np;
+
+		np.name = "Velocity";
+		np.label = "Velocity";
+		np.defaultValues[0] = 700.0;
+		np.minSliders[0] = 0.0;
+		np.maxSliders[0] =  1000.0;
+		
+		OP_ParAppendResult res = manager->appendFloat(np);
+		assert(res == OP_ParAppendResult::Success);
+	}
+
+	// acceleration
+	{
+		OP_NumericParameter	np;
+
+		np.name = "Acceleration";
+		np.label = "Acceleration";
+		np.defaultValues[0] = 100000.0;
+		np.minSliders[0] = 50000.0;
+		np.maxSliders[0] = 150000.0;
+
+		OP_ParAppendResult res = manager->appendFloat(np);
+		assert(res == OP_ParAppendResult::Success);
+	}
+
+	// rotate
 	{
 		OP_NumericParameter	np;
 
@@ -398,23 +332,13 @@ MotorControllerCHOP::setupParameters(OP_ParameterManager* manager, void *reserve
 void 
 MotorControllerCHOP::pulsePressed(const char* name, void* reserved1)
 {
-	if (!strcmp(name, "Reset"))
-	{
-		myOffset = 0.0;
-	}
-
 	if (!strcmp(name, "Rotate"))
 	{
-		myOffset = 10.0;
-		rotateMotor();
-	}
-
-	if (!strcmp(name, "Pause"))
-	{
-		std::this_thread::sleep_for(std::chrono::seconds(1));
+		nRotateClicked++;
 	}
 }
 
+/*
 int MotorControllerCHOP::rotateMotor()
 {
 	size_t portCount = 0;
@@ -588,4 +512,4 @@ int MotorControllerCHOP::rotateMotor()
 	
 	return 0;
 }
-
+*/

@@ -13,6 +13,7 @@
 */
 
 #include "CHOP_CPlusPlusBase.h"
+#include "SCHubController.h"
 
 /*
 
@@ -67,12 +68,13 @@ private:
 	// this instance of the class (like its name).
 	const OP_NodeInfo*	myNodeInfo;
 
-	// In this example this value will be incremented each time the execute()
-	// function is called, then passes back to the CHOP 
-	int32_t				myExecuteCount;
+	int32_t iNode = 0;
+	bool enable = false;
+	double counts = 0.0;
+	double velocity = 0.0;
+	double acceleration = 0.0;
+	int32_t nRotateClicked = 0;
 
-
-	double				myOffset;
-
-	int rotateMotor();
+	SCHubController motorController;
+	// int rotateMotor();
 };
