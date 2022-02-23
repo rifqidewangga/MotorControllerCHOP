@@ -9,11 +9,11 @@ using namespace sFnd;
 
 enum Status
 {
-	ERROR = -1,
 	SUCCESS = 0,
 	PORT_NOT_FOUND = 1,
 	TIMEOUT = 2,
-	HOMING_TIMEOUT = 3
+	HOMING_TIMEOUT = 3,
+	ERROR_CONTROLLER = 66
 };
 
 class SCHubController

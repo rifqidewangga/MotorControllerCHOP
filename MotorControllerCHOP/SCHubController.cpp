@@ -132,7 +132,7 @@ int SCHubController::rotateMotor(size_t iNode, int32_t distanceCnts, double velL
 		//printf("Caught error: addr=%d, err=0x%08x\nmsg=%s\n", theErr.TheAddr, theErr.ErrorCode, theErr.ErrorMsg);
 
 		//msgUser("Press any key to continue."); //pause so the user can see the error message; waits for user to press a key
-		return Status::ERROR;  //This terminates the main program
+		return Status::ERROR_CONTROLLER;  //This terminates the main program
 	}
 
 	return Status::SUCCESS;
