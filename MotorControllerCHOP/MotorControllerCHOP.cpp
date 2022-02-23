@@ -147,7 +147,14 @@ MotorControllerCHOP::execute(CHOP_Output* output,
 							  void* reserved)
 {	
 	iNode = inputs->getParInt("Inode");
-	enable = inputs->getParInt("Enable");
+	
+	isEnable = inputs->getParInt("Enable");
+	bool isNodeEnabled = motorController.enableMotor(iNode);
+	if (isEnable != isNodeEnabled)
+	{
+		motorController.enableMotor(iNode, isEnable);
+	}
+
 	counts = inputs->getParDouble("Counts"); // in the real case this should ask from motor controller
 	velocity = inputs->getParDouble("Velocity");
 	acceleration = inputs->getParDouble("Acceleration");
@@ -226,7 +233,7 @@ MotorControllerCHOP::getInfoDATEntries(int32_t index,
 #ifdef _WIN32
 		sprintf_s(tempBuffer, "%d", iNode);
 		entries->values[1]->setString(tempBuffer);
-		sprintf_s(tempBuffer, "%s", enable?"true":"false");
+		sprintf_s(tempBuffer, "%s", isEnable?"true":"false");
 		entries->values[2]->setString(tempBuffer);
 		sprintf_s(tempBuffer, "%.1f", counts);
 		entries->values[3]->setString(tempBuffer);
@@ -335,6 +342,7 @@ MotorControllerCHOP::pulsePressed(const char* name, void* reserved1)
 	if (!strcmp(name, "Rotate"))
 	{
 		nRotateClicked++;
+		motorController.rotateMotor(iNode, counts, velocity, acceleration);
 	}
 }
 

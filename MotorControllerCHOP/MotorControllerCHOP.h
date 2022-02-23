@@ -69,7 +69,7 @@ private:
 	const OP_NodeInfo*	myNodeInfo;
 
 	int32_t iNode = 0;
-	bool enable = false;
+	bool isEnable = false;
 	double counts = 0.0;
 	double velocity = 0.0;
 	double acceleration = 0.0;
