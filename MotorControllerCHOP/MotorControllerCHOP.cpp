@@ -91,8 +91,8 @@ MotorControllerCHOP::~MotorControllerCHOP()
 void
 MotorControllerCHOP::getGeneralInfo(CHOP_GeneralInfo* ginfo, const OP_Inputs* inputs, void* reserved1)
 {
-	// This will cause the node to cook every frame
-	ginfo->cookEveryFrameIfAsked = true;
+	// This will cause the node not to cook every frame
+	ginfo->cookEveryFrameIfAsked = false;
 
 	// Note: To disable timeslicing you'll need to turn this off, as well as ensure that
 	// getOutputInfo() returns true, and likely also set the info->numSamples to how many
@@ -106,25 +106,8 @@ MotorControllerCHOP::getGeneralInfo(CHOP_GeneralInfo* ginfo, const OP_Inputs* in
 bool
 MotorControllerCHOP::getOutputInfo(CHOP_OutputInfo* info, const OP_Inputs* inputs, void* reserved1)
 {
-	// If there is an input connected, we are going to match it's channel names etc
-	// otherwise we'll specify our own.
-	if (inputs->getNumInputs() > 0)
-	{
-		return false;
-	}
-	else
-	{
-		info->numChannels = 1;
-
-		// Since we are outputting a timeslice, the system will dictate
-		// the numSamples and startIndex of the CHOP data
-		//info->numSamples = 1;
-		//info->startIndex = 0
-
-		// For illustration we are going to output 120hz data
-		info->sampleRate = 120;
-		return true;
-	}
+	info->sampleRate = MOTOR_COMMAND_RATE;
+	return true;
 }
 
 void

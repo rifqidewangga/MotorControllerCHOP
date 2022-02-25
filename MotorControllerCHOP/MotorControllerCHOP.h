@@ -15,6 +15,8 @@
 #include "CHOP_CPlusPlusBase.h"
 #include "SCHubController.h"
 
+#define MOTOR_COMMAND_RATE 10
+
 class MotorControllerCHOP : public CHOP_CPlusPlusBase
 {
 public:
