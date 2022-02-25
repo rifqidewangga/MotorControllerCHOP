@@ -23,15 +23,6 @@
 #include <thread>
 #include <chrono>
 
-//// Library for ClearView and some constants
-//#include "pubSysCls.h"
-//using namespace sFnd;
-//#define ACC_LIM_RPM_PER_SEC 100000
-//#define VEL_LIM_RPM         700
-//#define MOVE_DISTANCE_CNTS  10000   
-//#define NUM_MOVES           5
-//#define TIME_TILL_TIMEOUT   10000   //The timeout used for homing(ms)
-
 
 // These functions are basic C function, which the DLL loader can find
 // much easier than finding a C++ Class.
@@ -149,10 +140,17 @@ MotorControllerCHOP::execute(CHOP_Output* output,
 	iNode = inputs->getParInt("Inode");
 	
 	isEnable = inputs->getParInt("Enable");
+#ifndef SIMULATION
 	bool isNodeEnabled = motorController.enableMotor(iNode);
+#else
+	bool isNodeEnabled = isEnable;
+#endif // !SIM
+
 	if (isEnable != isNodeEnabled)
 	{
+#ifndef SIMULATION
 		motorController.enableMotor(iNode, isEnable);
+#endif // !SIM
 	}
 
 	counts = inputs->getParDouble("Counts"); // in the real case this should ask from motor controller
@@ -342,7 +340,9 @@ MotorControllerCHOP::pulsePressed(const char* name, void* reserved1)
 	if (!strcmp(name, "Rotate"))
 	{
 		nRotateClicked++;
+#ifndef SIMULATION
 		motorController.rotateMotor(iNode, counts, velocity, acceleration);
+#endif // !SIM
 	}
 }
 

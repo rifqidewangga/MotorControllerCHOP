@@ -30,6 +30,7 @@ of the input will get used.
 If no input is connected then the node will output a smooth sine wave at 120hz.
 */
 
+#define SIMULATION
 
 // To get more help about these functions, look at CHOP_CPlusPlusBase.h
 class MotorControllerCHOP : public CHOP_CPlusPlusBase
@@ -75,6 +76,8 @@ private:
 	double acceleration = 0.0;
 	int32_t nRotateClicked = 0;
 
+#ifndef SIMULATION
 	SCHubController motorController;
-	// int rotateMotor();
+#endif // !SIM
+
 };
