@@ -30,11 +30,11 @@ public:
 	SCHubController();
 	~SCHubController();
 
-	void enableMotor(size_t iNode, bool newState);
-	bool enableMotor(size_t iNode);
-	int rotateMotor(
-		size_t iNode, 
-		int32_t distanceCnts, double velLimi=DEFAULT_VEL_LIM_RPM, double accLimit=DEFAULT_ACC_LIM_RPM_PER_SEC
-	);
+	void	enableMotor(size_t iNode, bool newState);
+	bool	enableMotor(size_t iNode);
+	int		rotateMotor(
+				size_t iNode, 
+				int32_t distanceCnts, double velLimi=DEFAULT_VEL_LIM_RPM, double accLimit=DEFAULT_ACC_LIM_RPM_PER_SEC);
+	Uint16 getNodeCount();
 };
 

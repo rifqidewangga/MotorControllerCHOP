@@ -81,6 +81,7 @@ DestroyCHOPInstance(CHOP_CPlusPlusBase* instance)
 
 MotorControllerCHOP::MotorControllerCHOP(const OP_NodeInfo* info) : myNodeInfo(info)
 {
+	updateNodeCount();
 }
 
 MotorControllerCHOP::~MotorControllerCHOP()
@@ -137,6 +138,8 @@ MotorControllerCHOP::execute(CHOP_Output* output,
 							  const OP_Inputs* inputs,
 							  void* reserved)
 {	
+	updateNodeCount();
+
 	iNode = inputs->getParInt("Inode");
 	
 	isEnable = inputs->getParInt("Enable");
@@ -144,13 +147,13 @@ MotorControllerCHOP::execute(CHOP_Output* output,
 	bool isNodeEnabled = motorController.enableMotor(iNode);
 #else
 	bool isNodeEnabled = isEnable;
-#endif // !SIM
+#endif // !SIMULATION
 
 	if (isEnable != isNodeEnabled)
 	{
 #ifndef SIMULATION
 		motorController.enableMotor(iNode, isEnable);
-#endif // !SIM
+#endif // !SIMULATION
 	}
 
 	counts = inputs->getParDouble("Counts"); // in the real case this should ask from motor controller
@@ -178,7 +181,7 @@ MotorControllerCHOP::getInfoCHOPChan(int32_t index,
 bool		
 MotorControllerCHOP::getInfoDATSize(OP_InfoDATSize* infoSize, void* reserved1)
 {
-	infoSize->rows = 4;
+	infoSize->rows = 11;
 	infoSize->cols = 8;
 	// Setting this to false means we'll be assigning values to the table
 	// one row at a time. True means we'll do it one column at a time.
@@ -195,59 +198,13 @@ MotorControllerCHOP::getInfoDATEntries(int32_t index,
 	char tempBuffer[4096];
 
 	if (index == 0)
-	{
-		entries->values[0]->setString("iNode");
-		entries->values[1]->setString("info");
-		entries->values[2]->setString("enabled");
-		entries->values[3]->setString("position (cnts)");
-		entries->values[4]->setString("velocity (rpm)");
-		entries->values[5]->setString("torque (..)");
-		entries->values[6]->setString("reserved");
-		entries->values[7]->setString("reserved");
-	}
+		fillNodeHeader(entries);
 
-	if (index == 1)
-	{
-		for (size_t i = 0; i < 8; i++)
-		{
-			entries->values[i]->setString("");
-		}
-	}
+	if (index > 0 && index < 10)
+		fillNodeInfo(entries, index - 1);
 
-	if (index == 2)
-	{
-		for (size_t i = 0; i < 8; i++)
-		{
-			entries->values[i]->setString("####");
-		}
-	}
-
-	if (index == 3)
-	{
-		 //Set the value for the first column
-		entries->values[0]->setString("debugoutput");
-
-		 //Set the value
-#ifdef _WIN32
-		sprintf_s(tempBuffer, "%d", iNode);
-		entries->values[1]->setString(tempBuffer);
-		sprintf_s(tempBuffer, "%s", isEnable?"true":"false");
-		entries->values[2]->setString(tempBuffer);
-		sprintf_s(tempBuffer, "%.1f", counts);
-		entries->values[3]->setString(tempBuffer);
-		sprintf_s(tempBuffer, "%.1f", velocity);
-		entries->values[4]->setString(tempBuffer);
-		sprintf_s(tempBuffer, "%.1f", acceleration);
-		entries->values[5]->setString(tempBuffer);
-		sprintf_s(tempBuffer, "%d", nRotateClicked);
-		entries->values[6]->setString(tempBuffer);
-		entries->values[7]->setString("####");
-
-#else // macOS, should add more to works on macOS
-		snprintf(tempBuffer, sizeof(tempBuffer), "%d", myExecuteCount);
-		entries->values[1]->setString(tempBuffer);
-#endif
-	}
+	if (index == 10)
+		fillDebugInfo(entries);
 }
 
 void
@@ -339,185 +296,74 @@ MotorControllerCHOP::pulsePressed(const char* name, void* reserved1)
 {
 	if (!strcmp(name, "Rotate"))
 	{
-		nRotateClicked++;
+		if (isNodeAvailable(iNode))
+			nRotateClicked++;
 #ifndef SIMULATION
-		motorController.rotateMotor(iNode, counts, velocity, acceleration);
-#endif // !SIM
+			motorController.rotateMotor(iNode, counts, velocity, acceleration);
+#endif // !SIMULATION
 	}
 }
 
-/*
-int MotorControllerCHOP::rotateMotor()
+void MotorControllerCHOP::updateNodeCount()
 {
-	size_t portCount = 0;
-	std::vector<std::string> comHubPorts;
-
-	//Create the SysManager object. This object will coordinate actions among various ports
-	// and within nodes. In this example we use this object to setup and open our port.
-	SysManager* myMgr = SysManager::Instance();							//Create System Manager myMgr
-
-	//This will try to open the port. If there is an error/exception during the port opening,
-	//the code will jump to the catch loop where detailed information regarding the error will be displayed;
-	//otherwise the catch loop is skipped over
-	try
-	{
-		SysManager::FindComHubPorts(comHubPorts);
-		//printf("Found %d SC Hubs\n", comHubPorts.size());
-
-		for (portCount = 0; portCount < comHubPorts.size() && portCount < NET_CONTROLLER_MAX; portCount++) {
-
-			//define the first SC Hub port (port 0) to be associated 
-			// with COM portnum (as seen in device manager)
-			myMgr->ComHubPort(portCount, comHubPorts[portCount].c_str());
-		}
-
-		if (portCount < 0) {
-
-			//printf("Unable to locate SC hub port\n");
-
-			//msgUser("Press any key to continue."); //pause so the user can see the error message; waits for user to press a key
-
-			return -1;  //This terminates the main program
-		}
-
-		//printf("\n I will now open port \t%i \n \n", portnum);
-		myMgr->PortsOpen(portCount);				//Open the port
-
-		for (size_t i = 0; i < portCount; i++) {
-			IPort& myPort = myMgr->Ports(i);
-
-			//printf(" Port[%d]: state=%d, nodes=%d\n", myPort.NetNumber(), myPort.OpenState(), myPort.NodeCount());
-
-			//Once the code gets past this point, it can be assumed that the Port has been opened without issue
-			//Now we can get a reference to our port object which we will use to access the node objects
-
-			for (size_t iNode = 0; iNode < myPort.NodeCount(); iNode++) {
-				// Create a shortcut reference for a node
-				INode& theNode = myPort.Nodes(iNode);
-
-				theNode.EnableReq(false);				//Ensure Node is disabled before loading config file
-
-				myMgr->Delay(200);
-
-				//theNode.Setup.ConfigLoad("Config File path");
-				// printf("   Node[%d]: type=%d\n", int(iNode), theNode.Info.NodeType());
-				// printf("            userID: %s\n", theNode.Info.UserID.Value());
-				// printf("        FW version: %s\n", theNode.Info.FirmwareVersion.Value());
-				// printf("          Serial #: %d\n", theNode.Info.SerialNumber.Value());
-				// printf("             Model: %s\n", theNode.Info.Model.Value());
-
-				//The following statements will attempt to enable the node.  First,
-				// any shutdowns or NodeStops are cleared, finally the node is enabled
-				theNode.Status.AlertsClear();					//Clear Alerts on node 
-				theNode.Motion.NodeStopClear();	//Clear Nodestops on Node  				
-				theNode.EnableReq(true);					//Enable node 
-				//At this point the node is enabled
-				//printf("Node \t%zi enabled\n", iNode);
-				double timeout = myMgr->TimeStampMsec() + TIME_TILL_TIMEOUT;	//define a timeout in case the node is unable to enable
-																			//This will loop checking on the Real time values of the node's Ready status
-				while (!theNode.Motion.IsReady()) {
-					if (myMgr->TimeStampMsec() > timeout) {
-						//printf("Error: Timed out waiting for Node %d to enable\n", iNode);
-						//msgUser("Press any key to continue."); //pause so the user can see the error message; waits for user to press a key
-						return -2;
-					}
-				}
-				//At this point the Node is enabled, and we will now check to see if the Node has been homed
-				//Check the Node to see if it has already been homed, 
-				if (theNode.Motion.Homing.HomingValid())
-				{
-					if (theNode.Motion.Homing.WasHomed())
-					{
-						//printf("Node %d has already been homed, current position is: \t%8.0f \n", iNode, theNode.Motion.PosnMeasured.Value());
-						//printf("Rehoming Node... \n");
-					}
-					else
-					{
-						//printf("Node [%d] has not been homed.  Homing Node now...\n", iNode);
-					}
-					//Now we will home the Node
-					theNode.Motion.Homing.Initiate();
-
-					timeout = myMgr->TimeStampMsec() + TIME_TILL_TIMEOUT;	//define a timeout in case the node is unable to enable
-																			// Basic mode - Poll until disabled
-					while (!theNode.Motion.Homing.WasHomed()) {
-						if (myMgr->TimeStampMsec() > timeout) {
-							//printf("Node did not complete homing:  \n\t -Ensure Homing settings have been defined through ClearView. \n\t -Check for alerts/Shutdowns \n\t -Ensure timeout is longer than the longest possible homing move.\n");
-							//msgUser("Press any key to continue."); //pause so the user can see the error message; waits for user to press a key
-							return -2;
-						}
-					}
-					//printf("Node completed homing\n");
-				}
-				else {
-					//printf("Node[%d] has not had homing setup through ClearView.  The node will not be homed.\n", iNode);
-				}
-
-			}
-
-			///////////////////////////////////////////////////////////////////////////////////////
-			//At this point we will execute 10 rev moves sequentially on each axis
-			//////////////////////////////////////////////////////////////////////////////////////
-
-			for (size_t i = 0; i < NUM_MOVES; i++)
-			{
-				for (size_t iNode = 0; iNode < myPort.NodeCount(); iNode++) {
-					// Create a shortcut reference for a node
-					INode& theNode = myPort.Nodes(iNode);
-
-					theNode.Motion.MoveWentDone();						//Clear the rising edge Move done register
-
-					theNode.AccUnit(INode::RPM_PER_SEC);				//Set the units for Acceleration to RPM/SEC
-					theNode.VelUnit(INode::RPM);						//Set the units for Velocity to RPM
-					theNode.Motion.AccLimit = ACC_LIM_RPM_PER_SEC;		//Set Acceleration Limit (RPM/Sec)
-					theNode.Motion.VelLimit = VEL_LIM_RPM;				//Set Velocity Limit (RPM)
-
-					//printf("Moving Node \t%zi \n", iNode);
-					theNode.Motion.MovePosnStart(MOVE_DISTANCE_CNTS);			//Execute 10000 encoder count move 
-					//printf("%f estimated time.\n", theNode.Motion.MovePosnDurationMsec(MOVE_DISTANCE_CNTS));
-					double timeout = myMgr->TimeStampMsec() + theNode.Motion.MovePosnDurationMsec(MOVE_DISTANCE_CNTS) + 100;			//define a timeout in case the node is unable to enable
-
-					while (!theNode.Motion.MoveIsDone()) {
-						if (myMgr->TimeStampMsec() > timeout) {
-							//printf("Error: Timed out waiting for move to complete\n");
-							//msgUser("Press any key to continue."); //pause so the user can see the error message; waits for user to press a key
-							return -2;
-						}
-					}
-					//printf("Node \t%zi Move Done\n", iNode);
-				} // for each node
-			} // for each move
-
-
-
-		//////////////////////////////////////////////////////////////////////////////////////////////
-		//After moves have completed Disable node, and close ports
-		//////////////////////////////////////////////////////////////////////////////////////////////
-			//printf("Disabling nodes, and closing port\n");
-			//Disable Nodes
-
-			for (size_t iNode = 0; iNode < myPort.NodeCount(); iNode++) {
-				// Create a shortcut reference for a node
-				myPort.Nodes(iNode).EnableReq(false);
-			}
-		}
-	}
-	catch (mnErr& theErr)
-	{
-		//printf("Failed to disable Nodes n\n");
-		//This statement will print the address of the error, the error code (defined by the mnErr class), 
-		//as well as the corresponding error message.
-		//printf("Caught error: addr=%d, err=0x%08x\nmsg=%s\n", theErr.TheAddr, theErr.ErrorCode, theErr.ErrorMsg);
-
-		//msgUser("Press any key to continue."); //pause so the user can see the error message; waits for user to press a key
-		return 0;  //This terminates the main program
-	}
-
-	// Close down the ports
-	myMgr->PortsClose();
-
-	//msgUser("Press any key to continue."); //pause so the user can see the error message; waits for user to press a key
-	
-	return 0;
+#ifndef SIMULATION
+	nodeCount = motorController.getNodeCount();
+#else
+	nodeCount = 2;
+#endif // !SIMULATION
 }
-*/
+
+bool MotorControllerCHOP::isNodeAvailable(int iNode)
+{
+	return iNode < nodeCount ? true : false;
+}
+
+void MotorControllerCHOP::fillNodeHeader(OP_InfoDATEntries* entries)
+{
+	entries->values[0]->setString("iNode");
+	entries->values[1]->setString("info");
+	entries->values[2]->setString("enabled");
+	entries->values[3]->setString("position (cnts)");
+	entries->values[4]->setString("velocity (rpm)");
+	entries->values[5]->setString("torque (..)");
+	entries->values[6]->setString("reserved");
+	entries->values[7]->setString("reserved");
+}
+
+void MotorControllerCHOP::fillNodeInfo(OP_InfoDATEntries* entries, int iNode)
+{
+	std::string temp;
+
+	temp = std::to_string(iNode);
+	entries->values[0]->setString(temp.c_str());
+
+	if (isNodeAvailable(iNode))
+		temp = "Available";
+	else
+		temp = "Not Available";
+	entries->values[1]->setString(temp.c_str());
+	
+	entries->values[2]->setString("..");
+	entries->values[3]->setString("..");
+	entries->values[4]->setString("..");
+	entries->values[5]->setString("..");
+	entries->values[6]->setString("..");
+	entries->values[7]->setString("..");
+}
+
+void MotorControllerCHOP::fillDebugInfo(OP_InfoDATEntries* entries)
+{
+	std::string temp;
+
+	entries->values[0]->setString("debugoutput");
+
+	temp = std::to_string(nRotateClicked);
+	entries->values[1]->setString(temp.c_str());
+	
+	entries->values[2]->setString("..");
+	entries->values[3]->setString("..");
+	entries->values[4]->setString("..");
+	entries->values[5]->setString("..");
+	entries->values[6]->setString("..");
+	entries->values[7]->setString("..");
+}

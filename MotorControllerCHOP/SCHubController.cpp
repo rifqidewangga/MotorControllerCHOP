@@ -47,10 +47,6 @@ void SCHubController::enableMotor(size_t iNode, bool newState)
 bool SCHubController::enableMotor(size_t iNode)
 {
 	IPort& myPort = _myMgr->Ports(_portID);
-
-	//Once the code gets past this point, it can be assumed that the Port has been opened without issue
-	//Now we can get a reference to our port object which we will use to access the node objects
-
 	INode& theNode = myPort.Nodes(iNode);
 
 	return theNode.EnableReq();
@@ -61,9 +57,6 @@ int SCHubController::rotateMotor(size_t iNode, int32_t distanceCnts, double velL
 	try
 	{
 		IPort& myPort = _myMgr->Ports(_portID);
-
-		//Once the code gets past this point, it can be assumed that the Port has been opened without issue
-		//Now we can get a reference to our port object which we will use to access the node objects
 
 		INode& theNode = myPort.Nodes(iNode);
 
@@ -136,4 +129,11 @@ int SCHubController::rotateMotor(size_t iNode, int32_t distanceCnts, double velL
 	}
 
 	return Status::SUCCESS;
+}
+
+Uint16 SCHubController::getNodeCount()
+{
+	IPort& myPort = _myMgr->Ports(_portID);
+
+	return myPort.NodeCount();
 }
