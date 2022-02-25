@@ -14,7 +14,6 @@
 
 #include "CHOP_CPlusPlusBase.h"
 #include "SCHubController.h"
-#define SIMULATION
 
 class MotorControllerCHOP : public CHOP_CPlusPlusBase
 {

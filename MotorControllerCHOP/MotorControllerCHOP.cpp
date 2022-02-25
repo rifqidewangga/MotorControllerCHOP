@@ -143,17 +143,21 @@ MotorControllerCHOP::execute(CHOP_Output* output,
 	iNode = inputs->getParInt("Inode");
 	
 	isEnable = inputs->getParInt("Enable");
-#ifndef SIMULATION
-	bool isNodeEnabled = motorController.enableMotor(iNode);
-#else
-	bool isNodeEnabled = isEnable;
-#endif // !SIMULATION
-
-	if (isEnable != isNodeEnabled)
+	
+	if (isNodeAvailable(iNode))
 	{
 #ifndef SIMULATION
-		motorController.enableMotor(iNode, isEnable);
+		bool isNodeEnabled = motorController.enableMotor(iNode);
+#else
+		bool isNodeEnabled = isEnable;
 #endif // !SIMULATION
+
+		if (isEnable != isNodeEnabled)
+		{
+#ifndef SIMULATION
+			motorController.enableMotor(iNode, isEnable);
+#endif // !SIMULATION
+		}
 	}
 
 	counts = inputs->getParDouble("Counts"); // in the real case this should ask from motor controller
