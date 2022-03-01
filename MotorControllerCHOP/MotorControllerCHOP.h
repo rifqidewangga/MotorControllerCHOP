@@ -14,6 +14,7 @@
 
 #include "CHOP_CPlusPlusBase.h"
 #include "SCHubController.h"
+#include "MotorInfo.h"
 
 #define MOTOR_COMMAND_RATE 10
 
@@ -53,21 +54,24 @@ private:
 	// this instance of the class (like its name).
 	const OP_NodeInfo*	myNodeInfo;
 
-	int iNode = 0;
-	bool isEnable = false;
-	double counts = 0.0;
-	double velocity = 0.0;
-	double acceleration = 0.0;
-	int32_t nRotateClicked = 0;
-
 	int nodeCount = 0;
-
+	MotorInfo motorsCommands[16];
+	
+	
 #ifndef SIMULATION
 	SCHubController motorController;
 #endif // !SIMULATION
 
 	void updateNodeCount();
+
+	void updateMotorCommand(const OP_Inputs* inputs, int iNode);
+	void updateMotorCommands(const OP_Inputs* inputs);
+	
+	void sendMotorCommand(int iNode);
+	void sendMotorCommands(const OP_Inputs* inputs);
+	
 	bool isNodeAvailable(int iNode);
+	
 	void fillNodeHeader(OP_InfoDATEntries* entries);
 	void fillNodeInfo(OP_InfoDATEntries* entries, int iNode);
 	void fillDebugInfo(OP_InfoDATEntries* entries);

@@ -54,7 +54,7 @@ FillCHOPPluginInfo(CHOP_PluginInfo *info)
 	info->customOPInfo.minInputs = 0;
 
 	// It can accept up to 1 input though, which changes it's behavior
-	info->customOPInfo.maxInputs = 1;
+	info->customOPInfo.maxInputs = 16;
 }
 
 DLLEXPORT
@@ -98,7 +98,7 @@ MotorControllerCHOP::getGeneralInfo(CHOP_GeneralInfo* ginfo, const OP_Inputs* in
 	// getOutputInfo() returns true, and likely also set the info->numSamples to how many
 	// samples you want to generate for this CHOP. Otherwise it'll take on length of the
 	// input CHOP, which may be timesliced.
-	ginfo->timeslice = true;
+	ginfo->timeslice = false;
 
 	ginfo->inputMatchIndex = 0;
 }
@@ -107,13 +107,13 @@ bool
 MotorControllerCHOP::getOutputInfo(CHOP_OutputInfo* info, const OP_Inputs* inputs, void* reserved1)
 {
 	info->sampleRate = MOTOR_COMMAND_RATE;
-	return true;
+	return false;
 }
 
 void
 MotorControllerCHOP::getChannelName(int32_t index, OP_String *name, const OP_Inputs* inputs, void* reserved1)
 {
-	name->setString("MotorController");
+	name->setString("chan1");
 }
 
 void
@@ -122,30 +122,8 @@ MotorControllerCHOP::execute(CHOP_Output* output,
 							  void* reserved)
 {	
 	updateNodeCount();
-
-	iNode = inputs->getParInt("Inode");
-	
-	isEnable = inputs->getParInt("Enable");
-	
-	if (isNodeAvailable(iNode))
-	{
-#ifndef SIMULATION
-		bool isNodeEnabled = motorController.enableMotor(iNode);
-#else
-		bool isNodeEnabled = isEnable;
-#endif // !SIMULATION
-
-		if (isEnable != isNodeEnabled)
-		{
-#ifndef SIMULATION
-			motorController.enableMotor(iNode, isEnable);
-#endif // !SIMULATION
-		}
-	}
-
-	counts = inputs->getParDouble("Counts"); // in the real case this should ask from motor controller
-	velocity = inputs->getParDouble("Velocity");
-	acceleration = inputs->getParDouble("Acceleration");
+	updateMotorCommands(inputs);
+	sendMotorCommands(inputs);
 }
 
 int32_t
@@ -197,98 +175,11 @@ MotorControllerCHOP::getInfoDATEntries(int32_t index,
 void
 MotorControllerCHOP::setupParameters(OP_ParameterManager* manager, void *reserved1)
 {
-	// iNode
-	{
-		OP_StringParameter	sp;
-
-		sp.name = "Inode";
-		sp.label = "Inode";
-		sp.defaultValue = "0";
-
-		const char* names[] = { "0", "1", "2", "3", "4", "5", "6", "7"};
-		const char* labels[] = { "0", "1", "2", "3", "4", "5", "6", "7" };
-
-		OP_ParAppendResult res = manager->appendMenu(sp, 8, names, labels);
-		assert(res == OP_ParAppendResult::Success);
-	}
-
-	// enable/disable motor
-	{
-		OP_NumericParameter	np;
-
-		np.name = "Enable";
-		np.label = "Enable";
-		np.defaultValues[0] = 0.0;
-
-		OP_ParAppendResult res = manager->appendToggle(np);
-		assert(res == OP_ParAppendResult::Success);
-	}
-
-	// Counts
-	{
-		OP_NumericParameter	np;
-
-		np.name = "Counts";
-		np.label = "Counts";
-		np.defaultValues[0] = 800.0;
-		np.minSliders[0] = -100000.0;
-		np.maxSliders[0] = 100000.0;
-
-		OP_ParAppendResult res = manager->appendFloat(np);
-		assert(res == OP_ParAppendResult::Success);
-	}
-
-	// velocity
-	{
-		OP_NumericParameter	np;
-
-		np.name = "Velocity";
-		np.label = "Velocity";
-		np.defaultValues[0] = 700.0;
-		np.minSliders[0] = 0.0;
-		np.maxSliders[0] =  1000.0;
-		
-		OP_ParAppendResult res = manager->appendFloat(np);
-		assert(res == OP_ParAppendResult::Success);
-	}
-
-	// acceleration
-	{
-		OP_NumericParameter	np;
-
-		np.name = "Acceleration";
-		np.label = "Acceleration";
-		np.defaultValues[0] = 100000.0;
-		np.minSliders[0] = 50000.0;
-		np.maxSliders[0] = 150000.0;
-
-		OP_ParAppendResult res = manager->appendFloat(np);
-		assert(res == OP_ParAppendResult::Success);
-	}
-
-	// rotate
-	{
-		OP_NumericParameter	np;
-
-		np.name = "Rotate";
-		np.label = "Rotate";
-
-		OP_ParAppendResult res = manager->appendPulse(np);
-		assert(res == OP_ParAppendResult::Success);
-	}
 }
 
 void 
 MotorControllerCHOP::pulsePressed(const char* name, void* reserved1)
 {
-	if (!strcmp(name, "Rotate"))
-	{
-		if (isNodeAvailable(iNode))
-			nRotateClicked++;
-#ifndef SIMULATION
-			motorController.rotateMotor(iNode, counts, velocity, acceleration);
-#endif // !SIMULATION
-	}
 }
 
 void MotorControllerCHOP::updateNodeCount()
@@ -298,6 +189,50 @@ void MotorControllerCHOP::updateNodeCount()
 #else
 	nodeCount = 2;
 #endif // !SIMULATION
+}
+
+void MotorControllerCHOP::updateMotorCommand(const OP_Inputs* inputs, int iNode)
+{
+	motorsCommands[iNode].CmpPos = inputs->getInputCHOP(iNode)->channelData[0][0];
+	motorsCommands[iNode].CmdVel = inputs->getInputCHOP(iNode)->channelData[1][0];
+	motorsCommands[iNode].CmdAcc = inputs->getInputCHOP(iNode)->channelData[2][0];
+}
+
+void MotorControllerCHOP::updateMotorCommands(const OP_Inputs* inputs)
+{
+	size_t availableNode = 0;
+	auto numInput = inputs->getNumInputs();
+
+	availableNode = (numInput < nodeCount) ? numInput : nodeCount;
+	
+	for (size_t i = 0; i < availableNode; i++)
+	{
+		updateMotorCommand(inputs, i);
+	}
+}
+
+void MotorControllerCHOP::sendMotorCommand(int iNode)
+{
+	if (isNodeAvailable(iNode))
+	{
+#ifndef SIMULATION
+		auto cmd = motorsCommands[iNode];
+		motorController.rotateMotor(iNode, cmd.CmpPos, cmd.CmdVel, cmd.CmdAcc);
+#endif // !SIMULATION
+	}
+}
+
+void MotorControllerCHOP::sendMotorCommands(const OP_Inputs* inputs)
+{
+	size_t availableNode = 0;
+	auto numInput = inputs->getNumInputs();
+
+	availableNode = (numInput < nodeCount) ? numInput : nodeCount;
+
+	for (size_t i = 0; i < availableNode; i++)
+	{
+		sendMotorCommand(i);
+	}
 }
 
 bool MotorControllerCHOP::isNodeAvailable(int iNode)
@@ -310,9 +245,9 @@ void MotorControllerCHOP::fillNodeHeader(OP_InfoDATEntries* entries)
 	entries->values[0]->setString("iNode");
 	entries->values[1]->setString("info");
 	entries->values[2]->setString("enabled");
-	entries->values[3]->setString("position (cnts)");
-	entries->values[4]->setString("velocity (rpm)");
-	entries->values[5]->setString("torque (..)");
+	entries->values[3]->setString("cmd_position (cnts)");
+	entries->values[4]->setString("cmd_velocity (rpm)");
+	entries->values[5]->setString("cmd_acceleration (rpm/s)");
 	entries->values[6]->setString("reserved");
 	entries->values[7]->setString("reserved");
 }
@@ -324,18 +259,34 @@ void MotorControllerCHOP::fillNodeInfo(OP_InfoDATEntries* entries, int iNode)
 	temp = std::to_string(iNode);
 	entries->values[0]->setString(temp.c_str());
 
-	if (isNodeAvailable(iNode))
+	if (isNodeAvailable(iNode)) {
 		temp = "Available";
-	else
+		entries->values[1]->setString(temp.c_str());
+
+		entries->values[2]->setString("..");
+		
+		temp = std::to_string(motorsCommands[iNode].CmpPos);
+		entries->values[3]->setString(temp.c_str());
+
+		temp = std::to_string(motorsCommands[iNode].CmdVel);
+		entries->values[4]->setString(temp.c_str());
+
+		temp = std::to_string(motorsCommands[iNode].CmdAcc);
+		entries->values[5]->setString(temp.c_str());
+
+		entries->values[6]->setString("..");
+		entries->values[7]->setString("..");
+	}
+	else {
 		temp = "Not Available";
-	entries->values[1]->setString(temp.c_str());
-	
-	entries->values[2]->setString("..");
-	entries->values[3]->setString("..");
-	entries->values[4]->setString("..");
-	entries->values[5]->setString("..");
-	entries->values[6]->setString("..");
-	entries->values[7]->setString("..");
+		entries->values[1]->setString(temp.c_str());
+		entries->values[2]->setString("..");
+		entries->values[3]->setString("..");
+		entries->values[4]->setString("..");
+		entries->values[5]->setString("..");
+		entries->values[6]->setString("..");
+		entries->values[7]->setString("..");
+	}
 }
 
 void MotorControllerCHOP::fillDebugInfo(OP_InfoDATEntries* entries)
@@ -344,9 +295,7 @@ void MotorControllerCHOP::fillDebugInfo(OP_InfoDATEntries* entries)
 
 	entries->values[0]->setString("debugoutput");
 
-	temp = std::to_string(nRotateClicked);
-	entries->values[1]->setString(temp.c_str());
-	
+	entries->values[1]->setString("..");
 	entries->values[2]->setString("..");
 	entries->values[3]->setString("..");
 	entries->values[4]->setString("..");

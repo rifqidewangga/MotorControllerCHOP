@@ -101,6 +101,7 @@
     <ClInclude Include="CPlusPlus_Common.h" />
     <ClInclude Include="MotorControllerCHOP.h" />
     <ClInclude Include="GL_Extensions.h" />
+    <ClInclude Include="MotorInfo.h" />
     <ClInclude Include="SCHubController.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
