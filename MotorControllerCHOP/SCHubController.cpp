@@ -3,6 +3,7 @@
 SCHubController::SCHubController()
 {
 	initializePort();
+	homeMotors();
 }
 
 SCHubController::~SCHubController()
@@ -32,34 +33,10 @@ int SCHubController::initializePort()
 	return Status::SUCCESS;
 }
 
-void SCHubController::enableMotor(size_t iNode, bool newState)
-{
-	IPort& myPort = _myMgr->Ports(_portID);
-
-	// Once the code gets past this point, it can be assumed that the Port has been opened without issue
-	// Now we can get a reference to our port object which we will use to access the node objects
-
-	INode& theNode = myPort.Nodes(iNode);
-
-	theNode.EnableReq(newState);
-}
-
-bool SCHubController::enableMotor(size_t iNode)
-{
-	IPort& myPort = _myMgr->Ports(_portID);
-	INode& theNode = myPort.Nodes(iNode);
-
-	return theNode.EnableReq();
-}
-
-int SCHubController::rotateMotor(size_t iNode, int32_t distanceCnts, double velLimit, double accLimit)
+int SCHubController::homeMotor(INode& theNode)
 {
 	try
 	{
-		IPort& myPort = _myMgr->Ports(_portID);
-
-		INode& theNode = myPort.Nodes(iNode);
-
 		theNode.EnableReq(false);
 
 		_myMgr->Delay(200);
@@ -96,26 +73,6 @@ int SCHubController::rotateMotor(size_t iNode, int32_t distanceCnts, double velL
 		}
 
 		theNode.Motion.MoveWentDone();  // Clear the rising edge Move done register
-
-		theNode.AccUnit(INode::RPM_PER_SEC);
-		theNode.VelUnit(INode::RPM);
-		theNode.Motion.AccLimit = accLimit;
-		theNode.Motion.VelLimit = velLimit;
-
-		//printf("Moving Node \t%zi \n", iNode);
-		theNode.Motion.MovePosnStart(distanceCnts);			//Execute 10000 encoder count move
-		//printf("%f estimated time.\n", theNode.Motion.MovePosnDurationMsec(MOVE_DISTANCE_CNTS));
-		timeout = _myMgr->TimeStampMsec() + theNode.Motion.MovePosnDurationMsec(distanceCnts) + 100;			//define a timeout in case the node is unable to enable
-
-		while (!theNode.Motion.MoveIsDone()) {
-			if (_myMgr->TimeStampMsec() > timeout) {
-				//printf("Error: Timed out waiting for move to complete\n");
-				//msgUser("Press any key to continue."); //pause so the user can see the error message; waits for user to press a key
-				return Status::TIMEOUT;
-			}
-		}
-
-		theNode.EnableReq(false);
 	}
 	catch (mnErr& theErr)
 	{
@@ -129,6 +86,84 @@ int SCHubController::rotateMotor(size_t iNode, int32_t distanceCnts, double velL
 	}
 
 	return Status::SUCCESS;
+}
+
+void SCHubController::homeMotors()
+{
+	IPort& myPort = _myMgr->Ports(_portID);
+
+	for (size_t i = 0; i < myPort.NodeCount(); i++)
+	{
+		INode& theNode = myPort.Nodes(i);
+		homeMotor(theNode);
+	}
+}
+
+void SCHubController::enableMotor(size_t iNode, bool newState)
+{
+	IPort& myPort = _myMgr->Ports(_portID);
+
+	// Once the code gets past this point, it can be assumed that the Port has been opened without issue
+	// Now we can get a reference to our port object which we will use to access the node objects
+
+	INode& theNode = myPort.Nodes(iNode);
+
+	theNode.EnableReq(newState);
+}
+
+bool SCHubController::enableMotor(size_t iNode)
+{
+	IPort& myPort = _myMgr->Ports(_portID);
+	INode& theNode = myPort.Nodes(iNode);
+
+	return theNode.EnableReq();
+}
+
+int SCHubController::rotateMotor(size_t iNode, int32_t distanceCnts, double velLimit, double accLimit)
+{
+	try
+	{
+		IPort& myPort = _myMgr->Ports(_portID);
+		INode& theNode = myPort.Nodes(iNode);
+
+		//if (!theNode.Motion.MoveIsDone())
+		//	return Status::BUSY;
+
+		theNode.VelUnit(INode::RPM);
+		theNode.Motion.VelLimit = velLimit;
+		theNode.AccUnit(INode::RPM_PER_SEC);
+		theNode.Motion.AccLimit = accLimit;
+
+		theNode.Motion.MovePosnStart(distanceCnts, true);
+	}
+	catch (mnErr& theErr)
+	{
+		//printf("Failed to disable Nodes n\n");
+		//This statement will print the address of the error, the error code (defined by the mnErr class), 
+		//as well as the corresponding error message.
+		//printf("Caught error: addr=%d, err=0x%08x\nmsg=%s\n", theErr.TheAddr, theErr.ErrorCode, theErr.ErrorMsg);
+
+		//msgUser("Press any key to continue."); //pause so the user can see the error message; waits for user to press a key
+		return Status::ERROR_CONTROLLER;  //This terminates the main program
+	}
+
+	return Status::SUCCESS;
+}
+
+double SCHubController::getMeasuredPos(size_t iNode)
+{
+	IPort& myPort = _myMgr->Ports(_portID);
+	INode& theNode = myPort.Nodes(iNode);
+
+	return theNode.Motion.PosnMeasured;
+}
+
+double SCHubController::getMeasuredTrq(size_t iNode)
+{
+	IPort& myPort = _myMgr->Ports(_portID);
+	INode& theNode = myPort.Nodes(iNode);
+
+	return theNode.Motion.TrqMeasured;
 }
 
 Uint16 SCHubController::getNodeCount()

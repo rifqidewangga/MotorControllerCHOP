@@ -55,7 +55,7 @@ private:
 	const OP_NodeInfo*	myNodeInfo;
 
 	int nodeCount = 0;
-	MotorInfo motorsCommands[16];
+	MotorCommand motorsCommands[16];
 	
 	
 #ifndef SIMULATION

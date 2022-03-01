@@ -146,7 +146,7 @@ MotorControllerCHOP::getInfoCHOPChan(int32_t index,
 bool		
 MotorControllerCHOP::getInfoDATSize(OP_InfoDATSize* infoSize, void* reserved1)
 {
-	infoSize->rows = 11;
+	infoSize->rows = 18;
 	infoSize->cols = 8;
 	// Setting this to false means we'll be assigning values to the table
 	// one row at a time. True means we'll do it one column at a time.
@@ -165,10 +165,10 @@ MotorControllerCHOP::getInfoDATEntries(int32_t index,
 	if (index == 0)
 		fillNodeHeader(entries);
 
-	if (index > 0 && index < 10)
+	if (index > 0 && index < 17)
 		fillNodeInfo(entries, index - 1);
 
-	if (index == 10)
+	if (index == 17)
 		fillDebugInfo(entries);
 }
 
@@ -248,8 +248,8 @@ void MotorControllerCHOP::fillNodeHeader(OP_InfoDATEntries* entries)
 	entries->values[3]->setString("cmd_position (cnts)");
 	entries->values[4]->setString("cmd_velocity (rpm)");
 	entries->values[5]->setString("cmd_acceleration (rpm/s)");
-	entries->values[6]->setString("reserved");
-	entries->values[7]->setString("reserved");
+	entries->values[6]->setString("positions (cnts)");
+	entries->values[7]->setString("torque ()");
 }
 
 void MotorControllerCHOP::fillNodeInfo(OP_InfoDATEntries* entries, int iNode)
