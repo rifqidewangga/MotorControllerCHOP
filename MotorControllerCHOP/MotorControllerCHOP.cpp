@@ -197,11 +197,11 @@ void MotorControllerCHOP::updateMotorCommand(const OP_Inputs* inputs, int iNode)
 	motorsInfo[iNode].CmdAcc = inputs->getInputCHOP(iNode)->channelData[2][0];
 
 #ifndef SIMULATION
-	motorsCommands[iNode].IsEnable		= motorController.enableMotor(iNode);
+	motorsInfo[iNode].IsEnable		= motorController.enableMotor(iNode);
 
-	motorsCommands[iNode].MeasuredPos	= motorController.getMeasuredPos(iNode);
-	motorsCommands[iNode].MeasuredVel	= motorController.getMeasuredVel(iNode);
-	motorsCommands[iNode].MeasuredTrq	= motorController.getMeasuredTrq(iNode);
+	motorsInfo[iNode].MeasuredPos	= motorController.getMeasuredPos(iNode);
+	motorsInfo[iNode].MeasuredVel	= motorController.getMeasuredVel(iNode);
+	motorsInfo[iNode].MeasuredTrq	= motorController.getMeasuredTrq(iNode);
 #else
 	motorsInfo[iNode].IsEnable		= false;
 
@@ -229,7 +229,7 @@ void MotorControllerCHOP::sendMotorCommand(int iNode)
 	if (isNodeAvailable(iNode))
 	{
 #ifndef SIMULATION
-		auto cmd = motorsCommands[iNode];
+		auto cmd = motorsInfo[iNode];
 		motorController.rotateMotor(iNode, cmd.CmpPos, cmd.CmdVel, cmd.CmdAcc);
 #endif // !SIMULATION
 	}
