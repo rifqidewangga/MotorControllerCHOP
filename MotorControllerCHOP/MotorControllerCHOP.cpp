@@ -92,7 +92,7 @@ void
 MotorControllerCHOP::getGeneralInfo(CHOP_GeneralInfo* ginfo, const OP_Inputs* inputs, void* reserved1)
 {
 	// This will cause the node not to cook every frame
-	ginfo->cookEveryFrameIfAsked = false;
+	ginfo->cookEveryFrameIfAsked = true;
 
 	// Note: To disable timeslicing you'll need to turn this off, as well as ensure that
 	// getOutputInfo() returns true, and likely also set the info->numSamples to how many

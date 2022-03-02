@@ -155,7 +155,9 @@ double SCHubController::getMeasuredPos(size_t iNode)
 	IPort& myPort = _myMgr->Ports(_portID);
 	INode& theNode = myPort.Nodes(iNode);
 
-	return theNode.Motion.PosnMeasured;
+	theNode.Motion.PosnMeasured.AutoRefresh(true);
+	double pos = theNode.Motion.PosnMeasured;
+	return pos;
 }
 
 double SCHubController::getMeasuredVel(size_t iNode)
@@ -163,7 +165,9 @@ double SCHubController::getMeasuredVel(size_t iNode)
 	IPort& myPort = _myMgr->Ports(_portID);
 	INode& theNode = myPort.Nodes(iNode);
 
-	return theNode.Motion.VelMeasured;
+	theNode.Motion.VelMeasured.AutoRefresh(true);
+	double vel = theNode.Motion.VelMeasured;
+	return vel;
 }
 
 double SCHubController::getMeasuredTrq(size_t iNode)
@@ -172,7 +176,9 @@ double SCHubController::getMeasuredTrq(size_t iNode)
 	INode& theNode = myPort.Nodes(iNode);
 	theNode.TrqUnit(INode::PCT_MAX);
 
-	return theNode.Motion.TrqMeasured;
+	theNode.Motion.TrqMeasured.AutoRefresh(true);
+	double trq = theNode.Motion.TrqMeasured;
+	return trq;
 }
 
 Uint16 SCHubController::getNodeCount()
