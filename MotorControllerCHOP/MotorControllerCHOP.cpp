@@ -106,8 +106,7 @@ MotorControllerCHOP::getGeneralInfo(CHOP_GeneralInfo* ginfo, const OP_Inputs* in
 bool
 MotorControllerCHOP::getOutputInfo(CHOP_OutputInfo* info, const OP_Inputs* inputs, void* reserved1)
 {
-	info->sampleRate = MOTOR_COMMAND_RATE;
-	return false;
+	return true;
 }
 
 void
@@ -147,7 +146,7 @@ bool
 MotorControllerCHOP::getInfoDATSize(OP_InfoDATSize* infoSize, void* reserved1)
 {
 	infoSize->rows = 18;
-	infoSize->cols = 8;
+	infoSize->cols = 9;
 	// Setting this to false means we'll be assigning values to the table
 	// one row at a time. True means we'll do it one column at a time.
 	infoSize->byColumn = false;
@@ -193,9 +192,23 @@ void MotorControllerCHOP::updateNodeCount()
 
 void MotorControllerCHOP::updateMotorCommand(const OP_Inputs* inputs, int iNode)
 {
-	motorsCommands[iNode].CmpPos = inputs->getInputCHOP(iNode)->channelData[0][0];
-	motorsCommands[iNode].CmdVel = inputs->getInputCHOP(iNode)->channelData[1][0];
-	motorsCommands[iNode].CmdAcc = inputs->getInputCHOP(iNode)->channelData[2][0];
+	motorsInfo[iNode].CmpPos = inputs->getInputCHOP(iNode)->channelData[0][0];
+	motorsInfo[iNode].CmdVel = inputs->getInputCHOP(iNode)->channelData[1][0];
+	motorsInfo[iNode].CmdAcc = inputs->getInputCHOP(iNode)->channelData[2][0];
+
+#ifndef SIMULATION
+	motorsCommands[iNode].IsEnable		= motorController.enableMotor(iNode);
+
+	motorsCommands[iNode].MeasuredPos	= motorController.getMeasuredPos(iNode);
+	motorsCommands[iNode].MeasuredVel	= motorController.getMeasuredVel(iNode);
+	motorsCommands[iNode].MeasuredTrq	= motorController.getMeasuredTrq(iNode);
+#else
+	motorsInfo[iNode].IsEnable		= false;
+
+	motorsInfo[iNode].MeasuredPos	= 0.0;
+	motorsInfo[iNode].MeasuredVel	= 0.0;
+	motorsInfo[iNode].MeasuredTrq	= 0.0;
+#endif // !SIMULATION
 }
 
 void MotorControllerCHOP::updateMotorCommands(const OP_Inputs* inputs)
@@ -249,7 +262,8 @@ void MotorControllerCHOP::fillNodeHeader(OP_InfoDATEntries* entries)
 	entries->values[4]->setString("cmd_velocity (rpm)");
 	entries->values[5]->setString("cmd_acceleration (rpm/s)");
 	entries->values[6]->setString("positions (cnts)");
-	entries->values[7]->setString("torque ()");
+	entries->values[7]->setString("velocity (rpm)");
+	entries->values[8]->setString("torque (% MAX)");
 }
 
 void MotorControllerCHOP::fillNodeInfo(OP_InfoDATEntries* entries, int iNode)
@@ -263,19 +277,26 @@ void MotorControllerCHOP::fillNodeInfo(OP_InfoDATEntries* entries, int iNode)
 		temp = "Available";
 		entries->values[1]->setString(temp.c_str());
 
-		entries->values[2]->setString("..");
+		temp = std::to_string(motorsInfo[iNode].IsEnable);
+		entries->values[2]->setString(temp.c_str());
 		
-		temp = std::to_string(motorsCommands[iNode].CmpPos);
+		temp = std::to_string(motorsInfo[iNode].CmpPos);
 		entries->values[3]->setString(temp.c_str());
 
-		temp = std::to_string(motorsCommands[iNode].CmdVel);
+		temp = std::to_string(motorsInfo[iNode].CmdVel);
 		entries->values[4]->setString(temp.c_str());
 
-		temp = std::to_string(motorsCommands[iNode].CmdAcc);
+		temp = std::to_string(motorsInfo[iNode].CmdAcc);
 		entries->values[5]->setString(temp.c_str());
 
-		entries->values[6]->setString("..");
-		entries->values[7]->setString("..");
+		temp = std::to_string(motorsInfo[iNode].MeasuredPos);
+		entries->values[6]->setString(temp.c_str());
+
+		temp = std::to_string(motorsInfo[iNode].MeasuredVel);
+		entries->values[7]->setString(temp.c_str());
+
+		temp = std::to_string(motorsInfo[iNode].MeasuredTrq);
+		entries->values[8]->setString(temp.c_str());
 	}
 	else {
 		temp = "Not Available";
@@ -286,6 +307,7 @@ void MotorControllerCHOP::fillNodeInfo(OP_InfoDATEntries* entries, int iNode)
 		entries->values[5]->setString("..");
 		entries->values[6]->setString("..");
 		entries->values[7]->setString("..");
+		entries->values[8]->setString("..");
 	}
 }
 
@@ -293,8 +315,7 @@ void MotorControllerCHOP::fillDebugInfo(OP_InfoDATEntries* entries)
 {
 	std::string temp;
 
-	entries->values[0]->setString("debugoutput");
-
+	entries->values[0]->setString("..");
 	entries->values[1]->setString("..");
 	entries->values[2]->setString("..");
 	entries->values[3]->setString("..");
@@ -302,4 +323,5 @@ void MotorControllerCHOP::fillDebugInfo(OP_InfoDATEntries* entries)
 	entries->values[5]->setString("..");
 	entries->values[6]->setString("..");
 	entries->values[7]->setString("..");
+	entries->values[8]->setString("..");
 }

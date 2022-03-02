@@ -42,6 +42,7 @@ public:
 				int32_t distanceCnts, double velLimi=DEFAULT_VEL_LIM_RPM, double accLimit=DEFAULT_ACC_LIM_RPM_PER_SEC);
 
 	double getMeasuredPos(size_t iNode);
+	double getMeasuredVel(size_t iNode);
 	double getMeasuredTrq(size_t iNode);
 
 	Uint16 getNodeCount();

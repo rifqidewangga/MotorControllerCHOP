@@ -16,7 +16,6 @@
 #include "SCHubController.h"
 #include "MotorInfo.h"
 
-#define MOTOR_COMMAND_RATE 10
 
 class MotorControllerCHOP : public CHOP_CPlusPlusBase
 {
@@ -55,9 +54,8 @@ private:
 	const OP_NodeInfo*	myNodeInfo;
 
 	int nodeCount = 0;
-	MotorCommand motorsCommands[16];
-	
-	
+	MotorInfo motorsInfo[16];
+
 #ifndef SIMULATION
 	SCHubController motorController;
 #endif // !SIMULATION

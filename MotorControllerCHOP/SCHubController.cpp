@@ -158,10 +158,19 @@ double SCHubController::getMeasuredPos(size_t iNode)
 	return theNode.Motion.PosnMeasured;
 }
 
+double SCHubController::getMeasuredVel(size_t iNode)
+{
+	IPort& myPort = _myMgr->Ports(_portID);
+	INode& theNode = myPort.Nodes(iNode);
+
+	return theNode.Motion.VelMeasured;
+}
+
 double SCHubController::getMeasuredTrq(size_t iNode)
 {
 	IPort& myPort = _myMgr->Ports(_portID);
 	INode& theNode = myPort.Nodes(iNode);
+	theNode.TrqUnit(INode::PCT_MAX);
 
 	return theNode.Motion.TrqMeasured;
 }
