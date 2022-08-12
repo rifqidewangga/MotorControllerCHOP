@@ -13,24 +13,10 @@
 */
 
 #include "CHOP_CPlusPlusBase.h"
-
-/*
-
-This example file implements a class that does 2 different things depending on
-if a CHOP is connected to the CPlusPlus CHOPs input or not.
-The example is timesliced, which is the more complex way of working.
-
-If an input is connected the node will output the same number of channels as the
-input and divide the first 'N' samples in the input channel by 2. 'N' being the current
-timeslice size. This is noteworthy because if the input isn't changing then the output
-will look wierd since depending on the timeslice size some number of the first samples
-of the input will get used.
-
-If no input is connected then the node will output a smooth sine wave at 120hz.
-*/
+#include "SCHubController.h"
+#include "MotorInfo.h"
 
 
-// To get more help about these functions, look at CHOP_CPlusPlusBase.h
 class MotorControllerCHOP : public CHOP_CPlusPlusBase
 {
 public:
@@ -67,12 +53,24 @@ private:
 	// this instance of the class (like its name).
 	const OP_NodeInfo*	myNodeInfo;
 
-	// In this example this value will be incremented each time the execute()
-	// function is called, then passes back to the CHOP 
-	int32_t				myExecuteCount;
+	int nodeCount = 0;
+	MotorInfo motorsInfo[16];
 
+#ifndef SIMULATION
+	SCHubController motorController;
+#endif // !SIMULATION
 
-	double				myOffset;
+	void updateNodeCount();
 
-	int rotateMotor();
+	void updateMotorCommand(const OP_Inputs* inputs, int iNode);
+	void updateMotorCommands(const OP_Inputs* inputs);
+	
+	void sendMotorCommand(int iNode);
+	void sendMotorCommands(const OP_Inputs* inputs);
+	
+	bool isNodeAvailable(int iNode);
+	
+	void fillNodeHeader(OP_InfoDATEntries* entries);
+	void fillNodeInfo(OP_InfoDATEntries* entries, int iNode);
+	void fillDebugInfo(OP_InfoDATEntries* entries);
 };
